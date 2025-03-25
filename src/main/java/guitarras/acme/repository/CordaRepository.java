@@ -8,10 +8,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class GuitarraRepository implements PanacheRepository<Guitarra> {
+public class CordaRepository implements PanacheRepository<Corda> {
 
-    public Guitarra findByTipo(String tipo) {
-        return find("SELECT e FROM Guitarra e WHERE e.tipo = ?1 ", tipo).firstResult();
+    public List<Corda> findByCalibre(String calibre){
+        return find("SELECT c FROM Corda c WHERE c. calibre LIKE ?1", "%" + calibre + "%").list();
     }
 
 }

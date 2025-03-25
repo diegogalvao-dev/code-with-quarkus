@@ -3,11 +3,7 @@ package guitarras.acme.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Guitarra {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Guitarra extends DefaultEntity{
 
     @Column(length = 60, nullable = false)
     private String nome;
@@ -31,14 +27,6 @@ public class Guitarra {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Modelos getModelos() {

@@ -26,7 +26,11 @@ public enum Modelos {
         return NOME;
     }
 
-    public static Modelos valueOf(int id) {
+    public static Modelos valueOf(Integer id) {
+
+        if (id == null){
+            return null;
+        }
         for (Modelos x : Modelos.values()) {
             if (x.getId() == id)
                 return x;

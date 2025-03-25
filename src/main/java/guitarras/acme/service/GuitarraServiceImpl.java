@@ -1,6 +1,7 @@
 package guitarras.acme.service;
 
 import guitarras.acme.dto.GuitarrasDTO;
+import guitarras.acme.dto.GuitarrasResponseDTO;
 import guitarras.acme.model.Guitarra;
 import guitarras.acme.model.Modelos;
 import guitarras.acme.repository.GuitarraRepository;
@@ -18,31 +19,26 @@ public class GuitarraServiceImpl implements GuitarraService {
 
     @Override
     @Transactional
-    public Guitarra create(GuitarrasDTO guitarras) {
+    public GuitarrasResponseDTO create(GuitarrasDTO guitarras) {
         Guitarra novaGuitarra = new Guitarra();
-        novaGuitarra.setNome(guitarras.getNome());
-        novaGuitarra.setTipo(guitarras.getTipo());
+        novaGuitarra.setNome(guitarras.nome());
+        novaGuitarra.setTipo(guitarras.tipo());
 
-        Modelos modelos = null;
-        for (Modelos x : Modelos.values()) {
-            if (x.getId() == guitarras.getIdModelo())
-                modelos = x;
-        }
-
-        novaGuitarra.setModelos(modelos);
+        novaGuitarra.setModelos(Modelos.valueOf(guitarras.idModelo()));
 
         guitarraRepository.persist(novaGuitarra);
 
-        return novaGuitarra;
+        return GuitarrasResponseDTO.valueOf(novaGuitarra);
     }
 
     @Override
     @Transactional
-    public void update(long id, Guitarra guitarra) {
+    public void update(long id, GuitarrasDTO guitarra) {
         Guitarra edicaoGuitarra = guitarraRepository.findById(id);
 
-        edicaoGuitarra.setNome(guitarra.getNome());
-        edicaoGuitarra.setTipo(guitarra.getTipo());
+        edicaoGuitarra.setNome(guitarra.nome());
+        edicaoGuitarra.setTipo(guitarra.tipo());
+        edicaoGuitarra.setModelos(Modelos.valueOf(guitarra.idModelo()));
     }
 
     @Override
@@ -52,18 +48,18 @@ public class GuitarraServiceImpl implements GuitarraService {
     }
 
     @Override
-    public Guitarra findById(long id) {
-        return guitarraRepository.findById(id);
+    public GuitarrasResponseDTO findById(long id) {
+        return GuitarrasResponseDTO.valueOf(guitarraRepository.findById(id));
     }
 
     @Override
-    public Guitarra findByTipo(String tipo) {
-        return guitarraRepository.findByTipo(tipo);
+    public GuitarrasResponseDTO findByTipo(String tipo) {
+        return GuitarrasResponseDTO.valueOf(guitarraRepository.findByTipo(tipo));
     }
 
     @Override
-    public List<Guitarra> findAll() {
-        return guitarraRepository.findAll().list();
+    public List<GuitarrasResponseDTO> findAll() {
+        return guitarraRepository.findAll().stream().map(e -> GuitarrasResponseDTO.valueOf(e)).toList();
     }
 
 }
