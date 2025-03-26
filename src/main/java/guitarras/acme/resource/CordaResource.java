@@ -27,8 +27,8 @@ public class CordaResource {
 
     @GET
     @Path("/cabibre/{calibre}")
-    public CordaResponseDTO buscarPorid(Long id) {
-        return service.findById(id);
+    public List<CordaResponseDTO> buscarporcalibre(String calibre) {
+        return service.findByCalibre(calibre);
     }
 
     @POST

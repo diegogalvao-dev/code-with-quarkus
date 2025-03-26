@@ -9,3 +9,7 @@ insert into guitarra (nome, tipo, modelos) values ('Waldman', 'Eletrica', 1);
 insert into guitarra (nome, tipo, modelos) values ('Fender', 'Acustica', 4);
 insert into guitarra (nome, tipo, modelos) values ('Dreadnought', 'Acustica', 3);
 insert into guitarra (nome, tipo, modelos) values ('Strinberg', 'Eletrica', 5);
+
+insert into corda (calibre, id_guitarra) values('Medium', 1);
+insert into corda (calibre, id_guitarra) values('Heavy', 3);
+insert into corda (calibre, id_guitarra) values('SuperLight', 2);
