@@ -1,0 +1,40 @@
+@startuml
+
+class Guitarra{
+    - nome : String
+    - tipo : String
+}
+
+class Corda{
+    - calibre : Double
+    - quantidade : Interger
+}
+
+class EstiloMusical{
+    - nome : String
+}
+
+class Estojo{
+    - tamanho : Double
+}
+
+enum Modelos{
+
+    - STRATOCASTER: int
+    - SG: int
+    - MARTINLX1E: int
+    - FENDERCD60S: int
+    - LESPAUL: int
+
+}
+
+'relacionamento'
+
+Guitarra "*" --> "1" Corda
+Guitarra "*" --> "1" Modelos
+
+Guitarra "*" --> "*" EstiloMusical
+
+Guitarra "1" --> "1" Estojo
+
+@enduml
