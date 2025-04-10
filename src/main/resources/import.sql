@@ -13,3 +13,7 @@ insert into guitarra (nome, tipo, modelos) values ('Strinberg', 'Eletrica', 5);
 insert into corda (calibre, id_guitarra) values('Medium', 1);
 insert into corda (calibre, id_guitarra) values('Heavy', 3);
 insert into corda (calibre, id_guitarra) values('SuperLight', 2);
+
+insert into estojo (material, estiloCase) values('tecido', 1);
+insert into estojo (material, estiloCase) values('madeira', 2);
+insert into estojo (material, estiloCase) values('tecido', 3);

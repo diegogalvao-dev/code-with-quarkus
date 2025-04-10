@@ -26,7 +26,7 @@ public class GuitarraResource {
 
     @GET
     @Path("/tipo/{tipo}")
-    public GuitarrasResponseDTO buscarPortipo(String tipo) {
+    public List<GuitarrasResponseDTO> buscarPortipo(String tipo) {
         return service.findByTipo(tipo);
     }
 

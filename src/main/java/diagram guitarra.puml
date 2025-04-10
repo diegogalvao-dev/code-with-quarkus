@@ -5,6 +5,14 @@ class Guitarra{
     - tipo : String
 }
 
+class Eletrica{
+    - temCaptadorAtivo : Boolean
+}
+
+class SemiAcustica{
+    - temCaixaRessonancia : Boolean
+}
+
 class Corda{
     - calibre : Double
     - quantidade : Interger
@@ -36,5 +44,8 @@ Guitarra "*" --> "1" Modelos
 Guitarra "*" --> "*" EstiloMusical
 
 Guitarra "1" --> "1" Estojo
+
+Eletrica -up-|> Guitarra
+SemiAcustica -up-|> Guitarra
 
 @enduml

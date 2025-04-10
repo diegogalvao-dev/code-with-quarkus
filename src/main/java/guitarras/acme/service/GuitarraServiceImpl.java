@@ -39,6 +39,7 @@ public class GuitarraServiceImpl implements GuitarraService {
         edicaoGuitarra.setNome(guitarra.nome());
         edicaoGuitarra.setTipo(guitarra.tipo());
         edicaoGuitarra.setModelos(Modelos.valueOf(guitarra.idModelo()));
+
     }
 
     @Override
@@ -53,8 +54,8 @@ public class GuitarraServiceImpl implements GuitarraService {
     }
 
     @Override
-    public GuitarrasResponseDTO findByTipo(String tipo) {
-        return GuitarrasResponseDTO.valueOf(guitarraRepository.findByTipo(tipo));
+    public List<GuitarrasResponseDTO> findByTipo(String tipo) {
+        return guitarraRepository.findByTipo(tipo).stream().map(GuitarrasResponseDTO::valueOf).toList();
     }
 
     @Override

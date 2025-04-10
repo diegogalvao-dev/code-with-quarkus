@@ -12,7 +12,7 @@ public interface GuitarraService {
     void update(long id, GuitarrasDTO guitarra);
     void delete(long id);
     GuitarrasResponseDTO findById(long id);
-    GuitarrasResponseDTO findByTipo(String tipo);
+    List<GuitarrasResponseDTO> findByTipo(String tipo);
     List<GuitarrasResponseDTO> findAll();
 
 }
