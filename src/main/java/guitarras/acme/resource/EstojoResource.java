@@ -2,15 +2,15 @@ package guitarras.acme.resource;
 
 
 import guitarras.acme.dto.EstojoDTO;
-import guitarras.acme.dto.EstojoResponseDTO;
 import guitarras.acme.model.EstiloCase;
 import guitarras.acme.service.EstojoService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
-import java.util.List;
 
 @Path("estojo")
 @Produces(MediaType.APPLICATION_JSON)
@@ -21,33 +21,35 @@ public class EstojoResource {
     EstojoService service;
 
     @GET
-    public List<EstojoResponseDTO> buscarTodos() {
-        return service.findAll();
+    public Response buscarTodos() {
+        return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
     @Path("/estiloCase/{id}")
-    public List<EstojoResponseDTO> buscarporCase(@PathParam("id") String idEstiloCase) {
+    public Response buscarporCase(@PathParam("id") String idEstiloCase) {
         EstiloCase estiloCase = EstiloCase.valueOf(idEstiloCase);
-        return service.findByCase(estiloCase);
+        return Response.ok().entity(service.findByCase(estiloCase)).build();
     }
 
     @POST
-    public EstojoResponseDTO incluir(EstojoDTO dto) {
-        return service.create(dto);
+    public Response incluir(EstojoDTO dto) {
+        return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void alterar(Long id, EstojoDTO dto) {
+    public Response alterar(Long id, EstojoDTO dto) {
         service.update(id, dto);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
-    public void apagar(Long id) {
+    public Response apagar(Long id) {
         service.delete(id);
+        return Response.noContent().build();
     }
 
 }

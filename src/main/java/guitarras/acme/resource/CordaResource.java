@@ -9,6 +9,8 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 import java.util.List;
 
@@ -21,32 +23,34 @@ public class CordaResource {
     CordaService service;
 
     @GET
-    public List<CordaResponseDTO> buscarTodos() {
-        return service.findAll();
+    public Response buscarTodos() {
+        return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
     @Path("/cabibre/{calibre}")
-    public List<CordaResponseDTO> buscarporcalibre(String calibre) {
-        return service.findByCalibre(calibre);
+    public Response buscarporcalibre(String calibre) {
+        return Response.ok().entity(service.findByCalibre(calibre)).build();
     }
 
     @POST
-    public CordaResponseDTO incluir(CordaDTO dto) {
-        return service.create(dto);
+    public Response incluir(CordaDTO dto) {
+        return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void alterar(Long id, CordaDTO dto) {
+    public Response alterar(Long id, CordaDTO dto) {
         service.update(id, dto);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
-    public void apagar(Long id) {
+    public Response apagar(Long id) {
         service.delete(id);
+        return Response.noContent().build();
     }
 
 }

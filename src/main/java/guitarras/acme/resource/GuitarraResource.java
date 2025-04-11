@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -20,38 +21,40 @@ public class GuitarraResource {
     GuitarraService service;
 
     @GET
-    public List<GuitarrasResponseDTO> buscarTodos() {
-        return service.findAll();
+    public Response buscarTodos() {
+        return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
     @Path("/tipo/{tipo}")
-    public List<GuitarrasResponseDTO> buscarPortipo(String tipo) {
-        return service.findByTipo(tipo);
+    public Response buscarPortipo(String tipo) {
+        return Response.ok().entity(service.findByTipo(tipo)).build();
     }
 
     @GET
     @Path("/id/{id}")
-    public GuitarrasResponseDTO buscarPorid(Long id) {
-        return service.findById(id);
+    public Response buscarPorid(Long id) {
+        return Response.ok().entity(service.findById(id)).build();
     }
 
     @POST
-    public GuitarrasResponseDTO incluir(GuitarrasDTO dto) {
-        return service.create(dto);
+    public Response incluir(GuitarrasDTO dto) {
+        return Response.status(Response.Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void alterar(Long id, GuitarrasDTO dto) {
+    public Response alterar(Long id, GuitarrasDTO dto) {
         service.update(id, dto);
+        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
-    public void apagar(Long id) {
+    public Response apagar(Long id) {
         service.delete(id);
+        return Response.noContent().build();
     }
 
 }
