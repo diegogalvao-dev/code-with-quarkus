@@ -17,3 +17,5 @@ insert into corda (calibre, id_guitarra) values('SuperLight', 2);
 insert into estojo (material, estiloCase) values('tecido', 1);
 insert into estojo (material, estiloCase) values('madeira', 2);
 insert into estojo (material, estiloCase) values('tecido', 3);
+
+insert into catalogoDeArtistas (nome, id_guitarra, estiloMusical) values('Jimi Hendrix', 1, 1);

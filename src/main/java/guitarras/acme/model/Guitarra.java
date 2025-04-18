@@ -2,6 +2,9 @@ package guitarras.acme.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Guitarra extends DefaultEntity{
 
@@ -12,6 +15,9 @@ public class Guitarra extends DefaultEntity{
     private String tipo;
 
     private Modelos modelos;
+
+    @ManyToMany(mappedBy = "guitarras")
+    public List<CatalogoDeArtistas> artistas = new ArrayList<>();
 
     public String getNome() {
         return nome;
