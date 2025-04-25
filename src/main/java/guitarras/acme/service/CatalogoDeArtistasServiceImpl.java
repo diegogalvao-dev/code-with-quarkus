@@ -10,12 +10,24 @@ import guitarras.acme.repository.CatalogoDeArtistasRepository;
 import guitarras.acme.repository.GuitarraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CatalogoDeArtistasServiceImpl implements CatalogoDeArtistasService {
+
+    @Inject
+    EntityManager em;
+
+    private CatalogoDeArtistasResponseDTO toResponseDTO(CatalogoDeArtistas artista) {
+        List<Long> guitarrasIds = (artista.getGuitarras() != null) ?
+                artista.getGuitarras().stream().map(Guitarra::getId).collect(Collectors.toList()) :
+                null;
+        return new CatalogoDeArtistasResponseDTO(artista.getId(), artista.getName(), guitarrasIds, artista.getEstiloMusical());
+    }
 
     @Inject
     CatalogoDeArtistasRepository catalogoDeArtistasRepository;
@@ -25,31 +37,51 @@ public class CatalogoDeArtistasServiceImpl implements CatalogoDeArtistasService 
 
     @Override
     @Transactional
-    public CatalogoDeArtistasResponseDTO create(CatalogoDeArtistasDTO dto) {
-        CatalogoDeArtistas novaCatalogoDeArtistas = new CatalogoDeArtistas();
-        novaCatalogoDeArtistas.setName(dto.name());
+    public CatalogoDeArtistas create(CatalogoDeArtistasDTO dto) {
+        CatalogoDeArtistas novoArtista = new CatalogoDeArtistas();
+        novoArtista.setName(dto.name());
 
-        Guitarra guitarra = guitarraRepository.findById(dto.idGuitarra());
-        novaCatalogoDeArtistas.setGuitarras(List.of(guitarra));
+        novoArtista.setEstiloMusical(EstiloMusical.valueOf(dto.idEstiloMusical()));
 
-        novaCatalogoDeArtistas.setEstiloMusical(EstiloMusical.valueOf(dto.idEstiloMusical()));
+        em.persist(novoArtista);
 
-        catalogoDeArtistasRepository.persist(novaCatalogoDeArtistas);
-
-        return CatalogoDeArtistasResponseDTO.valueOf(novaCatalogoDeArtistas);
+        return novoArtista;
     }
 
     @Override
     @Transactional
-    public void update(long id, CatalogoDeArtistasDTO dto) {
+    public CatalogoDeArtistas addGuitarra(Long artistaId, Long guitarraId) {
+        CatalogoDeArtistas artista = em.find(CatalogoDeArtistas.class, artistaId);
+        Guitarra guitarra = em.find(Guitarra.class, guitarraId);
+
+        if (artista == null || guitarra == null) {
+            return null;
+        }
+
+        if (artista.getGuitarras() == null) {
+            artista.setGuitarras(new java.util.ArrayList<>());
+        }
+        if (!artista.getGuitarras().contains(guitarra)) {
+            artista.getGuitarras().add(guitarra);
+            em.merge(artista);
+        }
+        return artista;
+    }
+
+    @Override
+    @Transactional
+    public CatalogoDeArtistas update(long id, CatalogoDeArtistasDTO dto) {
         CatalogoDeArtistas edicaoCatalogoDeArtistas = catalogoDeArtistasRepository.findById(id);
+
+        if (edicaoCatalogoDeArtistas == null) {
+            return null;
+        }
 
         edicaoCatalogoDeArtistas.setName(dto.name());
 
-        Guitarra guitarra = guitarraRepository.findById(dto.idGuitarra());
-        edicaoCatalogoDeArtistas.setGuitarras(List.of(guitarra));
+        em.merge(catalogoDeArtistasRepository);
 
-        edicaoCatalogoDeArtistas.setEstiloMusical(EstiloMusical.valueOf(dto.idEstiloMusical()));
+        return edicaoCatalogoDeArtistas;
     }
 
     @Override
@@ -60,17 +92,26 @@ public class CatalogoDeArtistasServiceImpl implements CatalogoDeArtistasService 
 
     @Override
     public CatalogoDeArtistasResponseDTO findById(long id) {
-        return CatalogoDeArtistasResponseDTO.valueOf(catalogoDeArtistasRepository.findById(id));
+//        return CatalogoDeArtistasResponseDTO.valueOf(catalogoDeArtistasRepository.findById(id));
+        CatalogoDeArtistas artista = em.find(CatalogoDeArtistas.class, id);
+        return (artista != null) ? toResponseDTO(artista) : null;
     }
 
-    @Override
-    public CatalogoDeArtistasResponseDTO findByName(String name) {
-        return CatalogoDeArtistasResponseDTO.valueOf(catalogoDeArtistasRepository.findByName(name));
-    }
+//    @Override
+//    public CatalogoDeArtistasResponseDTO findByName(String name) {
+//        return CatalogoDeArtistasResponseDTO.valueOf(catalogoDeArtistasRepository.findByName(name));
+//    }
 
     @Override
     public List<CatalogoDeArtistasResponseDTO> findAll() {
-        return catalogoDeArtistasRepository.findAll().stream().map(e -> CatalogoDeArtistasResponseDTO.valueOf(e)).toList();
+        return em.createQuery("SELECT a FROM CatalogoDeArtistas a", CatalogoDeArtistas.class)
+                .getResultList()
+                .stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+//        return catalogoDeArtistasRepository.findAll().stream()
+//                .map(e -> CatalogoDeArtistasResponseDTO.valueOf(e))
+//                .collect(Collectors.toList());
     }
 
 }

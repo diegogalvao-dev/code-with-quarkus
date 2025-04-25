@@ -2,7 +2,6 @@ package guitarras.acme.resource;
 
 
 import guitarras.acme.dto.GuitarrasDTO;
-import guitarras.acme.dto.GuitarrasResponseDTO;
 import guitarras.acme.service.GuitarraService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

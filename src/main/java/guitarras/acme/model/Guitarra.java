@@ -1,12 +1,14 @@
 package guitarras.acme.model;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Guitarra extends DefaultEntity{
+public class Guitarra extends DefaultEntity {
 
     @Column(length = 60, nullable = false)
     private String nome;
@@ -18,6 +20,14 @@ public class Guitarra extends DefaultEntity{
 
     @ManyToMany(mappedBy = "guitarras")
     public List<CatalogoDeArtistas> artistas = new ArrayList<>();
+
+    public List<CatalogoDeArtistas> getArtistas() {
+        return artistas;
+    }
+
+    public void setArtistas(List<CatalogoDeArtistas> artistas) {
+        this.artistas = artistas;
+    }
 
     public String getNome() {
         return nome;
@@ -42,6 +52,8 @@ public class Guitarra extends DefaultEntity{
     public void setModelos(Modelos modelos) {
         this.modelos = modelos;
     }
+
+
 
 }
 
