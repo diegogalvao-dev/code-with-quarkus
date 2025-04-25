@@ -1,5 +1,7 @@
 package guitarras.acme.service;
 
+import guitarras.acme.dto.GuitarraAcusticaDTO;
+import guitarras.acme.dto.GuitarraEletricaDTO;
 import guitarras.acme.dto.GuitarrasDTO;
 import guitarras.acme.dto.GuitarrasResponseDTO;
 import guitarras.acme.model.Guitarra;
@@ -8,11 +10,12 @@ import java.util.List;
 
 public interface GuitarraService {
 
-    GuitarrasResponseDTO create(GuitarrasDTO guitarra);
-    void update(long id, GuitarrasDTO guitarra);
+    GuitarrasResponseDTO createEletrica(GuitarraEletricaDTO dto);
+    GuitarrasResponseDTO createAcustica(GuitarraAcusticaDTO dto);
+    GuitarrasResponseDTO update(Long id, GuitarrasDTO dto);
     void delete(long id);
-    GuitarrasResponseDTO findById(long id);
-    List<GuitarrasResponseDTO> findByTipo(String tipo);
+    GuitarrasResponseDTO findById(Long id);
     List<GuitarrasResponseDTO> findAll();
+    List<GuitarrasResponseDTO> findByNome(String nome);
 
 }

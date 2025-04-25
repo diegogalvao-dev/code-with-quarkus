@@ -13,4 +13,8 @@ public class GuitarraRepository implements PanacheRepository<Guitarra> {
         return find("SELECT e FROM Guitarra e WHERE e.tipo LIKE ?1 ", "%" + tipo).list();
     }
 
+    public List<Guitarra> findByNome(String nome) {
+         return list("UPPER(nome) LIKE UPPER(?1)", "%" + nome + "%");
+     }
+
 }

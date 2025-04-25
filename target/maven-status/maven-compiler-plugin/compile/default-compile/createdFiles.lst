@@ -12,11 +12,15 @@ guitarras\acme\service\CordaService.class
 guitarras\acme\dto\EstojoResponseDTO.class
 guitarras\acme\service\EstojoServiceImpl.class
 guitarras\acme\model\Estojo.class
+guitarras\acme\model\GuitarraEletrica.class
 guitarras\acme\model\Corda.class
 guitarras\acme\repository\CordaRepository.class
 guitarras\acme\resource\EstojoResource.class
 guitarras\acme\service\CatalogoDeArtistasServiceImpl.class
+guitarras\acme\dto\GuitarraAcusticaDTO.class
+guitarras\acme\dto\GuitarraEletricaDTO.class
 guitarras\acme\repository\CatalogoDeArtistasRepository.class
 guitarras\acme\service\EstojoService.class
 guitarras\acme\dto\GuitarrasResponseDTO.class
 guitarras\acme\resource\CatalogoDeArtistasResource.class
+guitarras\acme\model\GuitarraAcustica.class

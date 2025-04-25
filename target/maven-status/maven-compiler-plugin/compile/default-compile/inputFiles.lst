@@ -4,6 +4,8 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\CordaResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EstojoDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EstojoResponseDTO.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\GuitarraAcusticaDTO.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\GuitarraEletricaDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\GuitarrasDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\GuitarrasResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\CatalogoDeArtistas.java
@@ -14,6 +16,8 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\EstiloMusical.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Estojo.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Guitarra.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\GuitarraAcustica.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\GuitarraEletrica.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Modelos.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\CatalogoDeArtistasRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\CordaRepository.java
