@@ -15,4 +15,11 @@ insert into estojo (material, estiloCase) values('tecido', 1);
 insert into estojo (material, estiloCase) values('madeira', 2);
 insert into estojo (material, estiloCase) values('tecido', 3);
 
+insert into configuracaoAudio (tipoAmplificador, presetEqualizador, temPedaleira) values('a', 'r', true);
+insert into configuracaoAudio (tipoAmplificador, presetEqualizador, temPedaleira) values('b', 'g', false);
+insert into configuracaoAudio (tipoAmplificador, presetEqualizador, temPedaleira) values('v', 'h', true);
+
+
+
+
 

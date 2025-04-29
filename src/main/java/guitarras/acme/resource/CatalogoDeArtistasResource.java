@@ -32,12 +32,6 @@ public class CatalogoDeArtistasResource {
         return Response.ok().entity(service.findAll()).build();
     }
 
-//    @GET
-//    @Path("/catalogoDeArtistas/{name}")
-//    public Response buscarporName(String name) {
-//        return Response.ok().entity(service.findByName(name)).build();
-//    }
-
     @POST
     public Response incluir(CatalogoDeArtistasDTO dto) {
 //        return Response.status(Status.CREATED).entity(service.create(dto)).build();
