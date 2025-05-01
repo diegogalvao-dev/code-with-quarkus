@@ -27,8 +27,8 @@ public class EstojoResource {
 
     @GET
     @Path("/estiloCase/{id}")
-    public Response buscarporCase(@PathParam("id") String idEstiloCase) {
-        EstiloCase estiloCase = EstiloCase.valueOf(idEstiloCase);
+    public Response buscarporCase(@PathParam("id") Integer idEstiloCase) {
+        EstiloCase estiloCase = EstiloCase.valueOf(idEstiloCase.intValue());
         return Response.ok().entity(service.findByCase(estiloCase)).build();
     }
 

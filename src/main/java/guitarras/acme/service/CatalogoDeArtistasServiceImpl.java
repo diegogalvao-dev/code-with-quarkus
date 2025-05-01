@@ -79,7 +79,9 @@ public class CatalogoDeArtistasServiceImpl implements CatalogoDeArtistasService 
 
         edicaoCatalogoDeArtistas.setName(dto.name());
 
-        em.merge(catalogoDeArtistasRepository);
+        edicaoCatalogoDeArtistas.setEstiloMusical(EstiloMusical.valueOf(dto.idEstiloMusical()));
+
+        catalogoDeArtistasRepository.persist(edicaoCatalogoDeArtistas);
 
         return edicaoCatalogoDeArtistas;
     }

@@ -21,7 +21,7 @@ public class Guitarra extends DefaultEntity {
     private Modelos modelos;
 
     @ManyToMany(mappedBy = "guitarras", fetch = FetchType.LAZY)
-    private List<CatalogoDeArtistas> artistas = new ArrayList<>(); // Inicializar a lista
+    private List<CatalogoDeArtistas> artistas = new ArrayList<>();
 
 
     public String getNome() {

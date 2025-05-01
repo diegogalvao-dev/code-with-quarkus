@@ -3,6 +3,7 @@ package guitarras.acme.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "estacao_teste")
 public class EstacaoTeste {
 
     @Id
@@ -27,10 +28,7 @@ public class EstacaoTeste {
     }
 
     public void setConfiguracaoAudio(ConfiguracaoAudio configuracaoAudio) {
-        // Evita loop infinito
-        if (this.configuracaoAudio == configuracaoAudio) {
-            return;
-        }
+        this.configuracaoAudio = configuracaoAudio;
     }
 
     public Long getId() {

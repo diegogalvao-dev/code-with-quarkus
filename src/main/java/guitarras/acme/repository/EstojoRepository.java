@@ -11,11 +11,11 @@ import java.util.List;
 public class EstojoRepository implements PanacheRepository<Estojo> {
 
     public List<Estojo> findByMaterial(String material){
-        return find("SELECT t FROM Estojo t WHERE t. calibre LIKE ?1", "%" + material + "%").list();
+        return find("SELECT t FROM Estojo t WHERE t. material LIKE ?1", "%" + material + "%").list();
     }
 
-    public List<Estojo> findByCase(EstiloCase idestiloCase){
-        return find("SELECT s FROM Estojo t WHERE s.estiloCase = ?1", idestiloCase).list();
+    public List<Estojo> findByCase(EstiloCase estiloCase){
+        return list("estiloCase", estiloCase);
     }
 
 }

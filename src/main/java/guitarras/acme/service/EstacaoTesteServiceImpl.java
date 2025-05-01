@@ -17,6 +17,8 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @ApplicationScoped
 public class EstacaoTesteServiceImpl implements EstacaoTesteService {
 
@@ -67,6 +69,7 @@ public class EstacaoTesteServiceImpl implements EstacaoTesteService {
     }
 
     @Override
+    @Transactional
     public List<EstacaoTesteResponseDTO> findAll() {
         return estacaoTesteRepository.listAll().stream()
                 .map(EstacaoTesteResponseDTO::valueOf)

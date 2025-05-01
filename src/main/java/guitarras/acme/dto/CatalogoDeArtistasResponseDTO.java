@@ -14,7 +14,7 @@ public record CatalogoDeArtistasResponseDTO(Long id, String name, List<Long> idG
 //            return null;
 //        }
 //
-////        return new CatalogoDeArtistasResponseDTO(catalogoDeArtistas.getId(),catalogoDeArtistas.getName(), catalogoDeArtistas.getGuitarras(), catalogoDeArtistas.getEstiloMusical());
+//        return new CatalogoDeArtistasResponseDTO(catalogoDeArtistas.getId(),catalogoDeArtistas.getName(), catalogoDeArtistas.getGuitarras(), catalogoDeArtistas.getEstiloMusical());
 //
 //    }
 
