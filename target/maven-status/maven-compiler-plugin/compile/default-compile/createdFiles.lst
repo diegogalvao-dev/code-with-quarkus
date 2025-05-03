@@ -26,7 +26,6 @@ guitarras\acme\repository\EstacaoTesteRepository.class
 guitarras\acme\model\DefaultEntity.class
 guitarras\acme\dto\CatalogoDeArtistasResponseDTO.class
 guitarras\acme\model\EstacaoTeste.class
-guitarras\acme\service\CordaServiceImpl.class
 guitarras\acme\service\EstacaoTesteService.class
 guitarras\acme\repository\ConfiguracaoAudioRepository.class
 guitarras\acme\service\CatalogoDeArtistasServiceImpl.class

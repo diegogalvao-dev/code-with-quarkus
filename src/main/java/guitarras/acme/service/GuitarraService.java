@@ -14,8 +14,9 @@ public interface GuitarraService {
     GuitarrasResponseDTO createAcustica(GuitarraAcusticaDTO dto);
     GuitarrasResponseDTO update(Long id, GuitarrasDTO dto);
     void delete(long id);
-    GuitarrasResponseDTO findById(Long id);
+
     List<GuitarrasResponseDTO> findAll();
     List<GuitarrasResponseDTO> findByNome(String nome);
+    GuitarrasResponseDTO findById(Long id);
 
 }

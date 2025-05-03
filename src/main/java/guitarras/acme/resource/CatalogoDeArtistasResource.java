@@ -10,6 +10,7 @@ import guitarras.acme.service.CatalogoDeArtistasService;
 import guitarras.acme.service.CordaService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -57,7 +58,7 @@ public class CatalogoDeArtistasResource {
 
     @PUT
     @Path("/{id}")
-    public Response alterar(@PathParam("id") Long id, CatalogoDeArtistasDTO dto) {
+    public Response alterar(@PathParam("id") Long id, @Valid CatalogoDeArtistasDTO dto) {
 //        service.update(id, dto);
         CatalogoDeArtistas artistaAtualizado = service.update(id, dto);
 

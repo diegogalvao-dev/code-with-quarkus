@@ -17,7 +17,6 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
     @Inject
     GuitarraRepository guitarraRepository;
 
-    // Método para criar Guitarra Elétrica
     @Override
     @Transactional
     public GuitarrasResponseDTO createEletrica(GuitarraEletricaDTO dto) {
@@ -37,7 +36,6 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
         return GuitarrasResponseDTO.valueOf(novaGuitarra);
     }
 
-    // Método para criar Guitarra Acústica
     @Override
     @Transactional
     public GuitarrasResponseDTO createAcustica(GuitarraAcusticaDTO dto) {
@@ -69,9 +67,7 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Modelo de guitarra inválido: " + dto.idModelo());
         }
-        // Não atualiza o 'tipo' ou campos específicos aqui
 
-        // guitarraRepository.persist(guitarra); // Não necessário se a entidade estiver gerenciada
         return GuitarrasResponseDTO.valueOf(guitarra);
     }
 
@@ -82,13 +78,6 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
         if (!guitarraRepository.deleteById(id)) {
             throw new NotFoundException("Guitarra não encontrada com id: " + id);
         }
-    }
-
-    @Override
-    public GuitarrasResponseDTO findById(Long id) {
-        Guitarra guitarra = guitarraRepository.findByIdOptional(id)
-                .orElseThrow(() -> new NotFoundException("Guitarra não encontrada com id: " + id));
-        return GuitarrasResponseDTO.valueOf(guitarra);
     }
 
     @Override
@@ -104,6 +93,16 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
         return guitarraRepository.findByNome(nome).stream()
                 .map(GuitarrasResponseDTO::valueOf)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public GuitarrasResponseDTO findById(Long id) {
+        Guitarra guitarra = guitarraRepository.findById(id);
+        if (guitarra == null) {
+            throw new NotFoundException("Guitarra não encontrada com id: " + id);
+        }
+        return GuitarrasResponseDTO.valueOf(guitarra);
+
     }
 
 }

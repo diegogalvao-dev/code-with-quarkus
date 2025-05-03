@@ -13,6 +13,7 @@ import guitarras.acme.repository.GuitarraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,8 +65,9 @@ public class EstacaoTesteServiceImpl implements EstacaoTesteService {
 
     @Override
     @Transactional
-    public void delete(long id) {
-        estacaoTesteRepository.deleteById(id);
+    public void deleteByName(String name) {
+        EstacaoTeste estacaoTesteDeletar = estacaoTesteRepository.findByName(name).orElseThrow(() -> new NotFoundException("EstacaoTeste não encontrada com esse nome" + name));
+        estacaoTesteRepository.delete(estacaoTesteDeletar);
     }
 
     @Override
@@ -74,6 +76,22 @@ public class EstacaoTesteServiceImpl implements EstacaoTesteService {
         return estacaoTesteRepository.listAll().stream()
                 .map(EstacaoTesteResponseDTO::valueOf)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<EstacaoTesteResponseDTO> findByNaoOcupada(){
+        return estacaoTesteRepository.findByOcupada(false).stream().map(EstacaoTesteResponseDTO::valueOf).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public EstacaoTesteResponseDTO findById(long id) {
+        EstacaoTeste estacaoTeste = estacaoTesteRepository.findById(id);
+        if (estacaoTeste == null) {
+            throw new NotFoundException("estacao não encontrada: " + id);
+        }
+        return EstacaoTesteResponseDTO.valueOf(estacaoTeste);
     }
 
 }

@@ -31,7 +31,7 @@ public record GuitarrasResponseDTO(
         return new GuitarrasResponseDTO(
                 guitarra.getId(),
                 guitarra.getNome(),
-                tipoStr, // Usa a string determinada acima
+                tipoStr,
                 guitarra.getModelos()
         );
     }

@@ -1,6 +1,15 @@
 package guitarras.acme.dto;
 
 
-public record ConfiguracaoAudioDTO(String tipoAmplificador, String presetEqualizador, boolean temPedaleira) {
+import jakarta.validation.constraints.NotNull;
+
+public record ConfiguracaoAudioDTO(
+
+        @NotNull(message = "O tipo do amplificador não pode ser nulo ou vazio.")
+        String tipoAmplificador,
+        @NotNull(message = "O preset do equalizador não pode ser nulo ou vazio.")
+        String presetEqualizador,
+
+        boolean temPedaleira) {
 
 }

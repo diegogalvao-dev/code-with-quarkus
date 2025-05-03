@@ -5,7 +5,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("ACUSTICA") // Valor na coluna TIPO_GUITARRA
+@DiscriminatorValue("ACUSTICA")
 public class GuitarraAcustica extends Guitarra {
 
     @Column(length = 50)

@@ -11,7 +11,7 @@ import java.util.List;
 public class EstojoRepository implements PanacheRepository<Estojo> {
 
     public List<Estojo> findByMaterial(String material){
-        return find("SELECT t FROM Estojo t WHERE t. material LIKE ?1", "%" + material + "%").list();
+        return list("UPPER(material) LIKE UPPER(?1)", "%" + material + "%");
     }
 
     public List<Estojo> findByCase(EstiloCase estiloCase){

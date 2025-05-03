@@ -4,6 +4,7 @@ import guitarras.acme.dto.*; // Importe os novos DTOs
 import guitarras.acme.service.GuitarraServiceImpl; // Use a implementação
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -25,16 +26,6 @@ public class GuitarraResource {
     }
 
     @GET
-    @Path("/{id}")
-    public Response buscarPorId(@PathParam("id") Long id) {
-        try {
-            return Response.ok(service.findById(id)).build();
-        } catch (NotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
-        }
-    }
-
-    @GET
     @Path("/search/{nome}")
     public Response buscarPorNome(@PathParam("nome") String nome) {
         return Response.ok(service.findByNome(nome)).build();
@@ -44,7 +35,7 @@ public class GuitarraResource {
     @POST
     @Path("/eletrica")
     @Transactional
-    public Response incluirEletrica(GuitarraEletricaDTO dto) {
+    public Response incluirEletrica(@Valid GuitarraEletricaDTO dto) {
         try {
             GuitarrasResponseDTO guitarraCriada = service.createEletrica(dto);
             URI uri = UriBuilder.fromResource(GuitarraResource.class).path(guitarraCriada.id().toString()).build();
@@ -58,7 +49,7 @@ public class GuitarraResource {
     @POST
     @Path("/acustica")
     @Transactional
-    public Response incluirAcustica(GuitarraAcusticaDTO dto) {
+    public Response incluirAcustica(@Valid GuitarraAcusticaDTO dto) {
         try {
             GuitarrasResponseDTO guitarraCriada = service.createAcustica(dto);
             URI uri = UriBuilder.fromResource(GuitarraResource.class).path(guitarraCriada.id().toString()).build();
@@ -71,7 +62,7 @@ public class GuitarraResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response alterar(@PathParam("id") Long id, GuitarrasDTO dto) {
+    public Response alterar(@PathParam("id") Long id, @Valid GuitarrasDTO dto) {
         try {
             GuitarrasResponseDTO guitarraAtualizada = service.update(id, dto);
             return Response.ok(guitarraAtualizada).build();

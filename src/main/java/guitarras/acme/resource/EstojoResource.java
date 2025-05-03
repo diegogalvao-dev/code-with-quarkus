@@ -6,6 +6,7 @@ import guitarras.acme.model.EstiloCase;
 import guitarras.acme.service.EstojoService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -26,20 +27,26 @@ public class EstojoResource {
     }
 
     @GET
-    @Path("/estiloCase/{id}")
-    public Response buscarporCase(@PathParam("id") Integer idEstiloCase) {
-        EstiloCase estiloCase = EstiloCase.valueOf(idEstiloCase.intValue());
-        return Response.ok().entity(service.findByCase(estiloCase)).build();
+    @Path("/material")
+    public Response buscarPorMaterial(@QueryParam("material") String material) {
+        return Response.ok().entity(service.findByMaterial(material)).build();
+    }
+
+    @GET
+    @Path("/estiloCase/{nomeEstiloCase}")
+    public Response buscarporCase(@PathParam("nomeEstiloCase") String nomeEstiloCase) {
+        EstiloCase estilocase = EstiloCase.valueOf(nomeEstiloCase.toUpperCase());
+        return Response.ok().entity(service.findByCase(estilocase)).build();
     }
 
     @POST
-    public Response incluir(EstojoDTO dto) {
+    public Response incluir(@Valid EstojoDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response alterar(Long id, EstojoDTO dto) {
+    public Response alterar(Long id, @Valid EstojoDTO dto) {
         service.update(id, dto);
         return Response.noContent().build();
     }

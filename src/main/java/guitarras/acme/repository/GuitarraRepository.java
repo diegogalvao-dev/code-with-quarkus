@@ -15,6 +15,6 @@ public class GuitarraRepository implements PanacheRepository<Guitarra> {
 
     public List<Guitarra> findByNome(String nome) {
          return list("UPPER(nome) LIKE UPPER(?1)", "%" + nome + "%");
-     }
+    }
 
 }

@@ -55,13 +55,18 @@ public class EstojoServiceImpl implements EstojoService {
     }
 
     @Override
-    public List<EstojoResponseDTO> findByCase(EstiloCase idEstiloCase) {
-        return estojoRepository.findByCase(idEstiloCase).stream().map(e -> EstojoResponseDTO.valueOf(e)).toList();
+    public List<EstojoResponseDTO> findByCase(EstiloCase estiloCase) {
+        return estojoRepository.findByCase(estiloCase).stream().map(e -> EstojoResponseDTO.valueOf(e)).toList();
     }
 
     @Override
     public List<EstojoResponseDTO> findAll() {
         return estojoRepository.findAll().stream().map(e -> EstojoResponseDTO.valueOf(e)).toList();
+    }
+
+    @Override
+    public List<EstojoResponseDTO> findByMaterial(String material) {
+        return estojoRepository.findByMaterial(material).stream().map(e -> EstojoResponseDTO.valueOf(e)).toList();
     }
 
 }

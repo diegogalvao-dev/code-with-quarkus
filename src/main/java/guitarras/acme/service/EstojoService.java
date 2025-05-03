@@ -14,5 +14,7 @@ public interface EstojoService {
 
     List<EstojoResponseDTO> findByCase(EstiloCase estiloCase);
     List<EstojoResponseDTO> findAll();
+    List<EstojoResponseDTO> findByMaterial(String material);
+
 
 }

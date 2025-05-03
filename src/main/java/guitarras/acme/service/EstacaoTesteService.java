@@ -10,8 +10,10 @@ public interface EstacaoTesteService {
 
     EstacaoTesteResponseDTO create(EstacaoTesteDTO estacaoTeste);
     void update(long id, EstacaoTesteDTO estacaoTeste);
-    void delete(long id);
+    void deleteByName(String name);
     
     List<EstacaoTesteResponseDTO> findAll();
+    List<EstacaoTesteResponseDTO> findByNaoOcupada();
+    EstacaoTesteResponseDTO findById(long id);
 
 }

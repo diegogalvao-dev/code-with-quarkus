@@ -10,9 +10,10 @@ public interface CordaService {
     CordaResponseDTO create(CordaDTO Corda);
     void update(long id, CordaDTO Corda);
     void delete(long id);
+    long deleteByIdGuitarra(long id);
 
     CordaResponseDTO findById(long id);
-
+    List<CordaResponseDTO> findByPorGuitarra(Long idGuitarra);
     List<CordaResponseDTO> findByCalibre(String calibre);
     List<CordaResponseDTO> findAll();
 

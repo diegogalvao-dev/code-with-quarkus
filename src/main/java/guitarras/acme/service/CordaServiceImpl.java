@@ -10,8 +10,10 @@ import guitarras.acme.repository.GuitarraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CordaServiceImpl implements CordaService {
@@ -55,18 +57,33 @@ public class CordaServiceImpl implements CordaService {
     }
 
     @Override
+    @Transactional
+    public long deleteByIdGuitarra(long idGuitarra) {
+        return cordaRepository.deleteByIdGuitarra(idGuitarra);
+    }
+
+    @Override
+    @Transactional
     public CordaResponseDTO findById(long id) {
         return CordaResponseDTO.valueOf(cordaRepository.findById(id));
     }
 
     @Override
+    @Transactional
     public List<CordaResponseDTO> findByCalibre(String calibre) {
         return cordaRepository.findByCalibre(calibre).stream().map(e -> CordaResponseDTO.valueOf(e)).toList();
     }
 
     @Override
+    @Transactional
     public List<CordaResponseDTO> findAll() {
         return cordaRepository.findAll().stream().map(e -> CordaResponseDTO.valueOf(e)).toList();
+    }
+
+    @Override
+    @Transactional
+    public List<CordaResponseDTO> findByPorGuitarra(Long idGuitarra){
+        return cordaRepository.findByIdGuitarra(idGuitarra).stream().map(CordaResponseDTO::valueOf).collect(Collectors.toList());
     }
 
 }
