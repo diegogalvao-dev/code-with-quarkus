@@ -5,6 +5,7 @@ import guitarras.acme.dto.ConfiguracaoAudioDTO;
 import guitarras.acme.dto.ConfiguracaoAudioResponseDTO;
 import guitarras.acme.model.ConfiguracaoAudio;
 import guitarras.acme.model.ConfiguracaoAudio;
+import guitarras.acme.model.Guitarra;
 import guitarras.acme.repository.ConfiguracaoAudioRepository;
 import guitarras.acme.repository.ConfiguracaoAudioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -57,6 +58,12 @@ public class ConfiguracaoAudioServiceImpl implements ConfiguracaoAudioService {
     @Override
     public List<ConfiguracaoAudioResponseDTO> findAll() {
         return configuracaoAudioRepository.findAll().stream().map(e -> ConfiguracaoAudioResponseDTO.valueOf(e)).toList();
+    }
+
+    @Override
+    @Transactional
+    public ConfiguracaoAudioResponseDTO findById(Long id) {
+        return ConfiguracaoAudioResponseDTO.valueOf(configuracaoAudioRepository.findById(id));
     }
 
 }

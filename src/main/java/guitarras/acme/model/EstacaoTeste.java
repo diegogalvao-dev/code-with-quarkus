@@ -3,14 +3,13 @@ package guitarras.acme.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "estacao_teste")
 public class EstacaoTeste {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 20, nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -19,8 +18,8 @@ public class EstacaoTeste {
     @Column(length = 50, nullable = false)
     private String localizacao;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_configuracao_audio", referencedColumnName = "id", unique = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "id_configuracao_audio", referencedColumnName = "id")
     private ConfiguracaoAudio configuracaoAudio;
 
     public ConfiguracaoAudio getConfiguracaoAudio() {

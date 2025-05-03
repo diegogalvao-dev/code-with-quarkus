@@ -12,5 +12,6 @@ public interface ConfiguracaoAudioService {
     void delete(long id);
     
     List<ConfiguracaoAudioResponseDTO> findAll();
+    ConfiguracaoAudioResponseDTO findById(Long id);
 
 }

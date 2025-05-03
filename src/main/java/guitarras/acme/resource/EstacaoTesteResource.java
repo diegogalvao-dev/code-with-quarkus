@@ -16,7 +16,7 @@ import jakarta.ws.rs.core.UriBuilder;
 
 import java.net.URI;
 
-@Path("estacaoteste")
+@Path("/estacaoteste")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
@@ -42,14 +42,14 @@ public class EstacaoTesteResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("{id}")
     public Response alterar(@PathParam("id") Long id, @Valid EstacaoTesteDTO dto) {
         service.update(id, dto);
         return Response.noContent().build();
     }
 
     @DELETE
-    @Path("/name/{name}")
+    @Path("{name}")
     public Response apagar(@PathParam("name") String name) {
         service.deleteByName(name);
         return Response.noContent().build();

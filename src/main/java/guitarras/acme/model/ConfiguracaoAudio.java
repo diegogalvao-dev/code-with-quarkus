@@ -18,7 +18,7 @@ public class ConfiguracaoAudio {
     @Column(nullable = false)
     private boolean temPedaleira;
 
-    @OneToOne(mappedBy = "configuracaoAudio", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "configuracaoAudio", fetch = FetchType.LAZY)
     private  EstacaoTeste estacaoTeste;
 
     public EstacaoTeste getEstacaoTeste() {

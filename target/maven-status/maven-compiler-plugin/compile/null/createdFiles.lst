@@ -1,8 +1,0 @@
-guitarras\acme\dto\GuitarrasDTO.class
-guitarras\acme\model\converterjpa\ModeloConverter.class
-guitarras\acme\model\Modelos.class
-guitarras\acme\model\Guitarra.class
-guitarras\acme\service\GuitarraService.class
-guitarras\acme\service\GuitarraServiceImpl.class
-guitarras\acme\repository\GuitarraRepository.class
-guitarras\acme\resource\GuitarraResource.class

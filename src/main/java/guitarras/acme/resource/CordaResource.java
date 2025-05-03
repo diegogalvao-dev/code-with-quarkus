@@ -14,25 +14,30 @@ import jakarta.ws.rs.core.Response.Status;
 
 import java.util.List;
 
-@Path("cordas")
+@Path("/cordas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Transactional
 public class CordaResource {
 
     @Inject
     CordaService service;
 
     @GET
+    @Path("/{id}")
+    public Response buscarPorId(@PathParam("id") Long id) {
+        try {
+            CordaResponseDTO dto = service.findById(id);
+            return Response.ok(dto).build();
+        } catch (NotFoundException e) {
+            return Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
     public Response buscarTodos() {
         return Response.ok().entity(service.findAll()).build();
     }
 
-    @GET
-    @Path("/calibre")
-    public Response buscarporcalibre(@QueryParam("calibre") String calibre) {
-        return Response.ok().entity(service.findByCalibre(calibre)).build();
-    }
 
     @GET
     @Path("/guitarra/{idGuitarra}")
@@ -48,16 +53,8 @@ public class CordaResource {
 
     @PUT
     @Path("/{id}")
-    public Response alterar(Long id, @Valid CordaDTO dto) {
+    public Response alterar(@PathParam("id") Long id, @Valid CordaDTO dto) {
         service.update(id, dto);
-        return Response.noContent().build();
-    }
-
-    @DELETE
-    @Path("/{id}")
-    @Transactional
-    public Response apagar(Long id) {
-        service.delete(id);
         return Response.noContent().build();
     }
 

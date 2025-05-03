@@ -126,7 +126,7 @@ public class GuitarraResourceTeste {
     @TestTransaction
     public void testApagarGuitarra() {
 
-        GuitarraAcusticaDTO guitarraParaApagar = new GuitarraAcusticaDTO("GuitarraParaApagar", 3, "mogno", false, false); // Model ID 3 = MARTINLX1E
+        GuitarraAcusticaDTO guitarraParaApagar = new GuitarraAcusticaDTO("GuitarraParaApagar", 3, "mogno", false, false);
         Long idParaApagar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraParaApagar)

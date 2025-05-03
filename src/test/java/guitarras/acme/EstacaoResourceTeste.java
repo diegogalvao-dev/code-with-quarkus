@@ -55,8 +55,7 @@ public class EstacaoResourceTeste {
                 .extract().jsonPath().getLong("id");
         assertThat("ConfiguracaoAudio ID for delete test not created", idConfig, notNullValue());
 
-        String nomeParaApagar = "estacao_para_apagar_" + System.currentTimeMillis();
-        EstacaoTesteDTO estacaoParaApagarDto = new EstacaoTesteDTO(nomeParaApagar, false, "local_apagar", idConfig);
+        EstacaoTesteDTO estacaoParaApagarDto = new EstacaoTesteDTO("ladoc", false, "local_apagar", idConfig);
 
         Long idEstacaoParaApagar = given()
                 .contentType(ContentType.JSON)
@@ -68,7 +67,7 @@ public class EstacaoResourceTeste {
         assertThat("EstacaoTeste ID for delete test not created", idEstacaoParaApagar, notNullValue());
 
         given()
-                .pathParam("name", nomeParaApagar)
+                .pathParam("name", "ladoc")
                 .when()
                 .delete(ESTACAO_BY_NAME_PATH)
                 .then()
@@ -143,6 +142,36 @@ public class EstacaoResourceTeste {
                 .body("[0].name", is("ladoa"))
                 .body("[0].ocupada", is(false))
                 .body("[0].localizacao", is("local_NAO_ocupado"));
+    }
+
+    static Long id = null;
+
+    @Test
+    @TestTransaction
+    void testAlterar() { // provalvemento é o path, lá no PG tem duas tabelas com estacaoteste
+
+        EstacaoTesteDTO estacaoteste = new EstacaoTesteDTO("ladoh", false, "sala Acessorios", 1L);
+
+        id = estacaoService.create(estacaoteste).id();
+
+        EstacaoTesteDTO estacaotestealterado = new EstacaoTesteDTO("ladog", false, "otherside", 1L);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(estacaotestealterado)
+                .pathParam("id", id)
+                .when().put(ESTACAO_BY_ID_PATH)
+                .then()
+                .log().all()
+                .statusCode(204);
+
+        EstacaoTesteResponseDTO response = estacaoService.findById(id);
+        assertThat(response.name(), is("ladog"));
+        assertThat(response.ocupada(), is(false));
+        assertThat(response.localizacao(), is("otherside"));
+        assertThat(response.configuracaoAudio(), is(1L));
+
+
     }
 
 }

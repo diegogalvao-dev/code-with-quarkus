@@ -33,6 +33,10 @@ public class CordaServiceImpl implements CordaService {
 
         Guitarra guitarra = guitarraRepository.findById(dto.idguitarra());
 
+        if (guitarra == null) {
+            throw new NotFoundException("Guitarra com ID " + dto.idguitarra() + " não encontrada para associação.");
+        }
+
         novaCorda.setGuitarra(guitarra);
 
         cordaRepository.persist(novaCorda);
@@ -45,8 +49,15 @@ public class CordaServiceImpl implements CordaService {
     public void update(long id, CordaDTO dto) {
         Corda edicaoCorda = cordaRepository.findById(id);
 
+        if (edicaoCorda == null) {
+            throw new NotFoundException("Corda com ID " + id + " não encontrada para atualização.");
+        }
+
         edicaoCorda.setCalibre(dto.calibre());
         Guitarra guitarra = guitarraRepository.findById(dto.idguitarra());
+        if (guitarra == null) {
+            throw new NotFoundException("Guitarra com ID " + dto.idguitarra() + " não encontrada para associação na atualização.");
+        }
         edicaoCorda.setGuitarra(guitarra);
     }
 
@@ -55,6 +66,7 @@ public class CordaServiceImpl implements CordaService {
     public void delete(long id) {
         cordaRepository.deleteById(id);
     }
+
 
     @Override
     @Transactional
@@ -65,13 +77,11 @@ public class CordaServiceImpl implements CordaService {
     @Override
     @Transactional
     public CordaResponseDTO findById(long id) {
+        Corda corda = cordaRepository.findById(id);
+        if (corda == null) {
+            throw new NotFoundException("Corda com ID " + id + " não encontrada.");
+        }
         return CordaResponseDTO.valueOf(cordaRepository.findById(id));
-    }
-
-    @Override
-    @Transactional
-    public List<CordaResponseDTO> findByCalibre(String calibre) {
-        return cordaRepository.findByCalibre(calibre).stream().map(e -> CordaResponseDTO.valueOf(e)).toList();
     }
 
     @Override

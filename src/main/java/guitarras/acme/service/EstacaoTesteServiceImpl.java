@@ -52,6 +52,10 @@ public class EstacaoTesteServiceImpl implements EstacaoTesteService {
     public void update(long id, EstacaoTesteDTO dto) {
         EstacaoTeste estacaoAlterada = estacaoTesteRepository.findById(id);
 
+        if (estacaoAlterada == null) {
+            throw new NotFoundException("EstacaoTeste não encontrada para atualização com ID: " + id);
+        }
+
         estacaoAlterada.setName(dto.name());
 
         ConfiguracaoAudio configuracaoAudio = configuracaoAudioRepository.findById(dto.idconfiguracaoAudio());

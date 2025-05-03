@@ -3,15 +3,16 @@ package guitarras.acme.dto;
 import guitarras.acme.model.ConfiguracaoAudio;
 import guitarras.acme.model.EstacaoTeste;
 
-public record EstacaoTesteResponseDTO(Long id, String name, boolean ocupada, String localizacao, ConfiguracaoAudio configuracaoAudio) {
+public record EstacaoTesteResponseDTO(Long id, String name, boolean ocupada, String localizacao, ConfiguracaoAudioResponseDTO configuracaoAudio) {
 
     public static EstacaoTesteResponseDTO valueOf(EstacaoTeste estacaoTeste){
 
-        if (estacaoTeste == null){
-            return null;
+        ConfiguracaoAudioResponseDTO configDTO = null; // Começa como null
+        if (estacaoTeste.getConfiguracaoAudio() != null) {
+            configDTO = ConfiguracaoAudioResponseDTO.valueOf(estacaoTeste.getConfiguracaoAudio());
         }
 
-        return new EstacaoTesteResponseDTO(estacaoTeste.getId(), estacaoTeste.getName(), estacaoTeste.isOcupada(), estacaoTeste.getLocalizacao(), estacaoTeste.getConfiguracaoAudio());
+        return new EstacaoTesteResponseDTO(estacaoTeste.getId(), estacaoTeste.getName(), estacaoTeste.isOcupada(), estacaoTeste.getLocalizacao(), configDTO);
 
     }
 
