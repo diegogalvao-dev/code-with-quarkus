@@ -16,11 +16,11 @@ public class CordaRepository implements PanacheRepository<Corda> {
     }
 
     public long deleteByIdGuitarra(Long idGuitarra){
-        return delete("idGuitarra", idGuitarra);
+        return delete("guitarra.id", idGuitarra);
     }
 
     public List<Corda> findByIdGuitarra(Long idGuitarra) {
-        return list("IdGuitarra", idGuitarra);
+        return list("guitarra.id", idGuitarra);
     }
 
 }

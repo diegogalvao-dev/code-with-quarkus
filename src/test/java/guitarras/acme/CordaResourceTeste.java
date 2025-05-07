@@ -102,14 +102,12 @@ public class CordaResourceTeste {
 
     }
 
-    static Long iidd = null;
-
     @Test
     @TestTransaction
-    void testApagar() {
+    void testApagarPorGuitarra() {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
-        Long idGuitarrra = given()
+        Long idGuitarraCriada = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when().post(GUITARRAS_ELETRICA_PATH)
@@ -117,19 +115,18 @@ public class CordaResourceTeste {
                 .statusCode(Response.Status.CREATED.getStatusCode())
                 .extract().jsonPath().getLong("id");
 
-        CordaDTO corda = new CordaDTO("gg", idGuitarrra);
+        CordaDTO corda = new CordaDTO("gg", idGuitarraCriada);
         given()
                 .contentType(ContentType.JSON)
                 .body(corda)
-                .when().post("/cordas")
+                .when().post(CORDA_PATH)
                 .then()
-                .statusCode(201);
+                .statusCode(Response.Status.CREATED.getStatusCode());
 
-        iidd =  cordaService.create(corda).id();
 
         given()
-                .pathParam("id", iidd)
-                .when().delete("/cordas" + "/{id}")
+                .pathParam("idGuitarra", idGuitarraCriada)
+                .when().delete(CORDA_PATH + "/guitarra/{idGuitarra}")
                 .then()
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 

@@ -144,33 +144,45 @@ public class EstacaoResourceTeste {
                 .body("[0].localizacao", is("local_NAO_ocupado"));
     }
 
-    static Long id = null;
-
     @Test
     @TestTransaction
-    void testAlterar() { // provalvemento é o path, lá no PG tem duas tabelas com estacaoteste
+    void testAlterar() {
 
-        EstacaoTesteDTO estacaoteste = new EstacaoTesteDTO("ladoh", false, "sala Acessorios", 1L);
+        ConfiguracaoAudioDTO configDto = new ConfiguracaoAudioDTO("Amp", "Jazz", false);
+        Long idConfig = given()
+                .contentType(ContentType.JSON).body(configDto)
+                .when().post(CONFIGURACAO_PATH)
+                .then().statusCode(201)
+                .extract().jsonPath().getLong("id");
+        assertThat("Config ID não foi criado para buscarnaoOcupado", idConfig, notNullValue());
 
-        id = estacaoService.create(estacaoteste).id();
+        EstacaoTesteDTO estacaoteste = new EstacaoTesteDTO("ladoh", false, "sala Acessorios", idConfig);
+        Long idEstacao = given()
+                .contentType(ContentType.JSON)
+                .body(estacaoteste)
+                .when().post(ESTACAO_PATH)
+                .then()
+                .log().all()
+                .statusCode(201)
+                .extract().jsonPath().getLong("id");
 
-        EstacaoTesteDTO estacaotestealterado = new EstacaoTesteDTO("ladog", false, "otherside", 1L);
-
+        EstacaoTesteDTO estacaotestealterado = new EstacaoTesteDTO("ladog", false, "otherside", idConfig);
         given()
                 .contentType(ContentType.JSON)
                 .body(estacaotestealterado)
-                .pathParam("id", id)
+                .pathParam("id", idEstacao)
                 .when().put(ESTACAO_BY_ID_PATH)
                 .then()
                 .log().all()
-                .statusCode(204);
+                .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 
-        EstacaoTesteResponseDTO response = estacaoService.findById(id);
+
+        EstacaoTesteResponseDTO response = estacaoService.findById(idEstacao);
         assertThat(response.name(), is("ladog"));
         assertThat(response.ocupada(), is(false));
         assertThat(response.localizacao(), is("otherside"));
-        assertThat(response.configuracaoAudio(), is(1L));
-
+        assertThat("O objeto configuracaoAudio no DTO de resposta não deve ser nulo", response.configuracaoAudio(), notNullValue());
+        assertThat("O ID da configuracaoAudio associada deve ser o esperado", response.configuracaoAudio().id(), is(idConfig));
 
     }
 
