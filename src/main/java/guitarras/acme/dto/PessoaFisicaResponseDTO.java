@@ -10,7 +10,7 @@ public record PessoaFisicaResponseDTO(Long id, String name, String cpf) {
             return null;
         }
 
-        return new PessoaFisicaResponseDTO(pessoaFisica.getId(), pessoaFisica.getName(), pessoaFisica.getCpg());
+        return new PessoaFisicaResponseDTO(pessoaFisica.getId(), pessoaFisica.getName(), pessoaFisica.getCpf());
 
     }
 

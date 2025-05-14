@@ -5,14 +5,14 @@ import jakarta.persistence.Entity;
 @Entity
 public class PessoaFisica extends Pessoa{
 
-    private String cpg;
+    private String cpf;
 
-    public String getCpg() {
-        return cpg;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCpg(String cpg) {
-        this.cpg = cpg;
+    public void setCpf(String cpg) {
+        this.cpf = cpg;
     }
 
 }
