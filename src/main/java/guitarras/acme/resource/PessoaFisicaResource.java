@@ -1,6 +1,8 @@
 package guitarras.acme.resource;
 
+import guitarras.acme.dto.PessoaFisicaDTO;
 import guitarras.acme.model.PessoaFisica;
+import guitarras.acme.service.PessoaFisicaService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

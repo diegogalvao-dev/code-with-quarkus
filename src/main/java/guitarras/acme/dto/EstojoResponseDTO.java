@@ -3,7 +3,10 @@ package guitarras.acme.dto;
 import guitarras.acme.model.EstiloCase;
 import guitarras.acme.model.Estojo;
 
-public record EstojoResponseDTO(Long id, String material, EstiloCase estiloCase) {
+public record EstojoResponseDTO(
+        Long id,
+        String material,
+        EstiloCase estiloCase) {
 
     public static EstojoResponseDTO valueOf(Estojo estojo){
 
