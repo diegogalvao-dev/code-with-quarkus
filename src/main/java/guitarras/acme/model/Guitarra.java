@@ -1,8 +1,5 @@
 package guitarras.acme.model;
 
-
-import guitarras.acme.model.DefaultEntity;
-
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -23,6 +20,8 @@ public class Guitarra extends DefaultEntity {
     @ManyToMany(mappedBy = "guitarras", fetch = FetchType.LAZY)
     private List<CatalogoDeArtistas> artistas = new ArrayList<>();
 
+    @Column(nullable = false)
+    private Double price;
 
     public String getNome() {
         return nome;
