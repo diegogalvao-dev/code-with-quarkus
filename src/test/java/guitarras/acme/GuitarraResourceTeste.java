@@ -60,7 +60,7 @@ public class GuitarraResourceTeste {
     @TestTransaction
     public void testIncluirEletrica(){
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
 
         given()
                 .contentType(ContentType.JSON)
@@ -77,7 +77,7 @@ public class GuitarraResourceTeste {
     @TestTransaction
     public void testIncluirAcustica(){
 
-        GuitarraAcusticaDTO guitarraAcustica = new GuitarraAcusticaDTO("CG", 1, "teca", true, true);
+        GuitarraAcusticaDTO guitarraAcustica = new GuitarraAcusticaDTO("CG", 1, 401.00, "teca", true, true, 9200);
 
         given()
                 .contentType(ContentType.JSON)
@@ -93,7 +93,7 @@ public class GuitarraResourceTeste {
     @TestTransaction
     public void testAlterarGuitarra() {
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
@@ -103,7 +103,7 @@ public class GuitarraResourceTeste {
                 .statusCode(Response.Status.CREATED.getStatusCode())
                 .extract().jsonPath().getLong("id");
 
-        GuitarrasDTO guitarraAlteradaDTO = new GuitarrasDTO("fender_ALTERADO", "ELETRICA", 2);
+        GuitarrasDTO guitarraAlteradaDTO = new GuitarrasDTO("fender_ALTERADO", 204.00, 10023, "ELETRICA", 2);
 
         given()
                 .contentType(ContentType.JSON)
@@ -126,7 +126,7 @@ public class GuitarraResourceTeste {
     @TestTransaction
     public void testApagarGuitarra() {
 
-        GuitarraAcusticaDTO guitarraParaApagar = new GuitarraAcusticaDTO("GuitarraParaApagar", 3, "mogno", false, false);
+        GuitarraAcusticaDTO guitarraParaApagar = new GuitarraAcusticaDTO("CG", 1, 401.00, "teca", true, true, 9200);
         Long idParaApagar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraParaApagar)

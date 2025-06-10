@@ -2,9 +2,11 @@ package guitarras.acme.dto;
 
 public record GuitarraAcusticaDTO(
         String nome,
-        Integer idModelo, 
+        Integer idModelo,
+        Double price,
         String tipoMadeiraTampo,
         Boolean possuiCutaway,
-        Boolean eletroacustica
+        Boolean eletroacustica,
+        Integer estoque
 ) {
 }

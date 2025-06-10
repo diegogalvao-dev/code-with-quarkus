@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class GuitarraServiceImpl implements GuitarraService { // Supondo que exista a interface GuitarraService
+public class GuitarraServiceImpl implements GuitarraService {
 
     @Inject
     GuitarraRepository guitarraRepository;
@@ -22,15 +22,15 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
     public GuitarrasResponseDTO createEletrica(GuitarraEletricaDTO dto) {
         GuitarraEletrica novaGuitarra = new GuitarraEletrica();
         novaGuitarra.setNome(dto.nome());
-        // Valide se o idModelo existe antes de usar valueOf
         try {
             novaGuitarra.setModelos(Modelos.valueOf(dto.idModelo()));
         } catch (IllegalArgumentException e) {
-            // Lide com o erro - modelo inválido
             throw new IllegalArgumentException("Modelo de guitarra inválido: " + dto.idModelo());
         }
         novaGuitarra.setNumeroCaptadores(dto.numeroCaptadores());
         novaGuitarra.setTipoPonte(dto.tipoPonte());
+        novaGuitarra.setPrice(dto.price());
+        novaGuitarra.setEstoque(dto.estoque());
 
         guitarraRepository.persist(novaGuitarra);
         return GuitarrasResponseDTO.valueOf(novaGuitarra);
@@ -49,6 +49,8 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
         novaGuitarra.setTipoMadeiraTampo(dto.tipoMadeiraTampo());
         novaGuitarra.setPossuiCutaway(dto.possuiCutaway());
         novaGuitarra.setEletroacustica(dto.eletroacustica());
+        novaGuitarra.setPrice(dto.price());
+        novaGuitarra.setEstoque(dto.estoque());
 
         guitarraRepository.persist(novaGuitarra);
         return GuitarrasResponseDTO.valueOf(novaGuitarra);
@@ -57,7 +59,7 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
 
     @Override
     @Transactional
-    public GuitarrasResponseDTO update(Long id, GuitarrasDTO dto) { // Usando o DTO antigo para campos comuns
+    public GuitarrasResponseDTO update(Long id, GuitarrasDTO dto) {
         Guitarra guitarra = guitarraRepository.findByIdOptional(id)
                 .orElseThrow(() -> new NotFoundException("Guitarra não encontrada com id: " + id));
 
@@ -67,6 +69,9 @@ public class GuitarraServiceImpl implements GuitarraService { // Supondo que exi
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Modelo de guitarra inválido: " + dto.idModelo());
         }
+
+        guitarra.setPrice(dto.price());
+        guitarra.setEstoque(dto.estoque());
 
         return GuitarrasResponseDTO.valueOf(guitarra);
     }

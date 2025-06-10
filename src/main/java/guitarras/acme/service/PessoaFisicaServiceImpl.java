@@ -4,11 +4,12 @@ import guitarras.acme.dto.PessoaFisicaDTO;
 import guitarras.acme.dto.PessoaFisicaResponseDTO;
 import guitarras.acme.model.PessoaFisica;
 import guitarras.acme.repository.PessoaFisicaRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-
+@ApplicationScoped
 public class PessoaFisicaServiceImpl implements PessoaFisicaService{
 
     @Inject

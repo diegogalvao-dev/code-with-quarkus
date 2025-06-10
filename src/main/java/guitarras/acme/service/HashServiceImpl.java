@@ -1,11 +1,14 @@
 package guitarras.acme.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
 import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+@ApplicationScoped
 public class HashServiceImpl implements HashService{
 
     private String salt = "##224%g";

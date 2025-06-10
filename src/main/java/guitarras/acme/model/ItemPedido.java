@@ -5,7 +5,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class ItemPedido {
+public class ItemPedido extends DefaultEntity{
 
     private Integer quantidade;
     private Double preco;

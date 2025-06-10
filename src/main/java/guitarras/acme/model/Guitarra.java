@@ -20,8 +20,27 @@ public class Guitarra extends DefaultEntity {
     @ManyToMany(mappedBy = "guitarras", fetch = FetchType.LAZY)
     private List<CatalogoDeArtistas> artistas = new ArrayList<>();
 
+    @Column(columnDefinition = "INT CHECK (estoque >= 0)")// @Check(constraints = "estoque >= 0")
+    private Integer estoque;
+
     @Column(nullable = false)
     private Double price;
+
+    public Integer getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public String getNome() {
         return nome;

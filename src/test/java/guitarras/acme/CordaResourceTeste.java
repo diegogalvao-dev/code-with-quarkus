@@ -39,7 +39,7 @@ public class CordaResourceTeste {
     @Test
     void testIncluir(){
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
@@ -66,7 +66,7 @@ public class CordaResourceTeste {
     @Test
     void testAlterar(){
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
@@ -106,7 +106,7 @@ public class CordaResourceTeste {
     @TestTransaction
     void testApagarPorGuitarra() {
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idGuitarraCriada = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
@@ -138,7 +138,7 @@ public class CordaResourceTeste {
     @Test
     void testBuscarPorGuitarra(){
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
@@ -171,7 +171,7 @@ public class CordaResourceTeste {
     @Test
     void testbuscarPorId(){
 
-        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 3, "Hardtail");
+        GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)

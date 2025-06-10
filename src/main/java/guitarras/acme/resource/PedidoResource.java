@@ -1,7 +1,9 @@
 package guitarras.acme.resource;
 
+import guitarras.acme.dto.PedidoDTO;
 import guitarras.acme.dto.PedidoResponseDTO;
 import guitarras.acme.model.Pedido;
+import guitarras.acme.service.PedidoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -26,7 +28,7 @@ public class PedidoResource {
     @POST
     @RolesAllowed({"User"})
     @Path("/criarpedido")
-    public Response criarPedido(Pedido dto){
+    public Response criarPedido(PedidoDTO dto){
 
         String username = jwt.getSubject();
 

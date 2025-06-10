@@ -20,5 +20,10 @@
 --insert into estacao_teste (name, ocupada, localizacao, id_configuracao_audio) values('Bancada Principal', false, 'na sessão de acessorios', 3);
 --insert into estacao_teste (name, ocupada, localizacao, id_configuracao_audio) values('Sala de Testes A', true, 'sala de guitarras personalizadas', 1);
 --
---INSERT INTO Guitarra(nome, modelos, TIPO_GUITARRA, numero_captadores, tipoponte, tipomadeiratampo, possuicutaway, eletroacustica)
---VALUES ('Gibson Les Paul', 0, 'ELETRICA', 2, 'Tune-o-matic', NULL, NULL, NULL);
+--INSERT INTO Guitarra(nome, idmodelos, price,TIPO_GUITARRA, estoque, tipomadeiratampo, possuicutway, numero_captadores, tipoponte)
+--VALUES ('fender', 1, 300.00, 'ELETRICA', 10, NULL, NULL, NULL, 3, 'heavy');
+
+--
+--INSERT INTO Guitarra(nome, modelos, price, TIPO_GUITARRA, estoque, numero_captadores, tipoponte)
+--VALUES ('fender', 'Stratocaster', 500.00, 'ELETRICA', 10023, 3, 'Hardtail');
+

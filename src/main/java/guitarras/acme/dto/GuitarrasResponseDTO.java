@@ -9,6 +9,8 @@ public record GuitarrasResponseDTO(
         Long id,
         String nome,
         String tipo,
+        Double price,
+        Integer estoque,
         Modelos modelos
 ) {
 
@@ -32,6 +34,8 @@ public record GuitarrasResponseDTO(
                 guitarra.getId(),
                 guitarra.getNome(),
                 tipoStr,
+                guitarra.getPrice(),
+                guitarra.getEstoque(),
                 guitarra.getModelos()
         );
     }

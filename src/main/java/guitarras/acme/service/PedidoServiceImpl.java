@@ -49,22 +49,21 @@ public class PedidoServiceImpl implements PedidoService{
 
         Pedido pedido = new Pedido();
         pedido.setDataHora(LocalDateTime.now());
-
-        pedido.setTotalPedido(pedidoDTO.total());
         pedido.setUsuario(usuario);
 
         List<ItemPedido> listaItem = new ArrayList<ItemPedido>();
+
+        ItemPedido item = new ItemPedido();
 
         for(ItemPedidoDTO itemDTO : pedidoDTO.itens()){
 
             Guitarra guitarra = guitarraRepository.findById(itemDTO.idProduto());
 
-            ItemPedido item = new ItemPedido();
             item.setPedido(pedido);
             item.setGuitarra(guitarra);
 
             //verificar se o preco do dto é o mesmo do produto
-            item.setPreco(item.getGuitarra().getPreco());
+            item.setPreco(item.getGuitarra().getPrice());
             item.setQuantidade(itemDTO.qtd());
 
             listaItem.add(item);
@@ -74,6 +73,7 @@ public class PedidoServiceImpl implements PedidoService{
 
         }
 
+        pedido.setTotalPedido(item.getPreco() * item.getQuantidade());
         pedido.setItens(listaItem);
 
         pedidoRepository.persist(pedido);
