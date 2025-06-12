@@ -24,39 +24,15 @@ import static org.hamcrest.Matchers.*;
 
 
 @QuarkusTest
-public class EstojoResourceTeste {
+public class EstojoResourceTeste extends BaseTest{
 
     @Inject
     EstojoService estojoService;
-
-    private String adminAuthToken;
 
     private static final String ESTOJO_PATH = "/estojo";
     private static final String ESTOJO_ID_PATH = ESTOJO_PATH + "/{id}";
     private static final String ESTOJO_MATERIAL_PATH = ESTOJO_PATH + "/material";
     private static final String ESTOJO_ESTILO_PATH = ESTOJO_PATH + "/estiloCase/{nomeEstiloCase}";
-
-    @BeforeEach
-    public void setUp() {
-        // Obtém o token antes de cada teste
-        adminAuthToken = getAdminAuthToken();
-    }
-
-    private String getAdminAuthToken() {
-        AuthDTO authDTO = new AuthDTO("gerente", "123456"); // Use suas credenciais de teste "Adm"
-        String token = given()
-                .contentType(ContentType.JSON)
-                .body(authDTO)
-                .when().post("/auth") // Certifique-se que este é o path correto para o login
-                .then()
-                .statusCode(Response.Status.OK.getStatusCode())
-                .extract().header("Authorization");
-
-        if (token == null || token.isEmpty()) {
-            throw new RuntimeException("Não foi possível obter o token de autenticação para os testes. Verifique o AuthResource e as credenciais.");
-        }
-        return token;
-    }
 
     @Test
     @TestTransaction
@@ -65,6 +41,7 @@ public class EstojoResourceTeste {
         EstojoDTO estojo = new EstojoDTO("madeira", 1);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estojo)
                 .when().post(ESTOJO_PATH)
@@ -80,6 +57,7 @@ public class EstojoResourceTeste {
     public void testBuscarTodos() {
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().get(ESTOJO_PATH)
                 .then()
                 .statusCode(Response.Status.OK.getStatusCode());
@@ -90,6 +68,7 @@ public class EstojoResourceTeste {
     public void testBuscarPorMaterial() {
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .queryParam("material", "madeira")
                 .when().get(ESTOJO_MATERIAL_PATH)
                 .then()
@@ -108,6 +87,7 @@ public class EstojoResourceTeste {
 
 
         Long idEstojoCriado = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON).body(estojoHardcase).when().post(ESTOJO_PATH)
                 .then()
                 .log().all()
@@ -118,9 +98,15 @@ public class EstojoResourceTeste {
         assertThat(idEstojoCriado, notNullValue());
 
 
-        given().contentType(ContentType.JSON).body(estojoOutro).when().post(ESTOJO_PATH).then().statusCode(201);
+        given()
+                .header("Authorization", "Bearer " + adminAuthToken)
+                .contentType(ContentType.JSON).body(estojoOutro)
+                .when().post(ESTOJO_PATH)
+                .then()
+                .statusCode(201);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("nomeEstiloCase", estiloBusca.name())
                 .when().get(ESTOJO_ESTILO_PATH)
                 .then()
@@ -142,6 +128,7 @@ public class EstojoResourceTeste {
         EstojoDTO estojoOriginal = new EstojoDTO("tecido", 5);
 
         Long idEstojoOriginal = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON).body(estojoOriginal).when().post(ESTOJO_PATH)
                 .then().statusCode(201).extract().jsonPath().getLong("id");
 
@@ -150,6 +137,7 @@ public class EstojoResourceTeste {
 
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estojoAlterado)
                 .pathParam("id", idEstojoOriginal)
@@ -158,6 +146,7 @@ public class EstojoResourceTeste {
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .queryParam("material", "madeira")
                 .when().get(ESTOJO_MATERIAL_PATH)
                 .then()
@@ -176,6 +165,7 @@ public class EstojoResourceTeste {
         EstojoDTO estojoParaApagarDto = new EstojoDTO(materialParaApagar, 4);
 
         Long idParaApagar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estojoParaApagarDto)
                 .when().post(ESTOJO_PATH)
@@ -183,6 +173,7 @@ public class EstojoResourceTeste {
                 .statusCode(201).extract().jsonPath().getLong("id");
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("id", idParaApagar)
                 .when().delete(ESTOJO_ID_PATH)
                 .then()

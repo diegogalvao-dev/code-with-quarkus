@@ -1,5 +1,3 @@
-
-
 insert into pessoa (name) values ('gerente antonio');
 insert into pessoa (name) values ('cliente da silva');
 
@@ -19,3 +17,15 @@ insert into usuario(username, senha, perfil, idpessoafisica)
         'p0eulcN/vk7A1gBuaJYP6w7JSlPPZuf3LD7UJOMDicepk2568OrgzS1WUz0Z/YP9Yq2Uh8v695ewG4JTZXMrKA==',
         2,
         2);
+
+INSERT INTO Guitarra (nome, modelos, estoque, price, TIPO_GUITARRA, numero_captadores, tipoPonte)
+VALUES ('Fender Stratocaster Sunburst', 'STRATOCASTER', 10, 1250.99, 'ELETRICA', 3, 'Tremolo Sincronizado');
+
+INSERT INTO Guitarra (nome, modelos, estoque, price, TIPO_GUITARRA, numero_captadores, tipoPonte)
+VALUES ('Taylor GS Mini Mahogany', 'SG', 15, 699.00, 'ACUSTICA', NULL, NULL);
+
+INSERT INTO Pedido (dataHora, id_usuario, totalPedido)
+VALUES ('2024-05-21 14:30:00', 2, 1600.98);
+
+INSERT INTO ItemPedido (id_pedido, id_guitarra, quantidade, preco)
+VALUES (1, 1, 1, 1250.99);

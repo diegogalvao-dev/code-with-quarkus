@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-public class CatalogoDeArtistasResourceTeste {
+public class CatalogoDeArtistasResourceTeste extends BaseTest{
 
     @Inject
     CatalogoDeArtistasService catalogoDeArtistasService;
@@ -25,6 +25,7 @@ public class CatalogoDeArtistasResourceTeste {
     @Test
     void testBuscarTodos() {
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().get("/catalogoDeArtistas")
                 .then()
                 .statusCode(200);
@@ -35,6 +36,7 @@ public class CatalogoDeArtistasResourceTeste {
         CatalogoDeArtistasDTO estado = new CatalogoDeArtistasDTO("hh", 2);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estado)
                 .when().post("/catalogoDeArtistas")
@@ -57,6 +59,7 @@ public class CatalogoDeArtistasResourceTeste {
         CatalogoDeArtistasDTO catalogoDeArtistasDTOalterado = new CatalogoDeArtistasDTO("tt", 3);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(catalogoDeArtistasDTOalterado)
                 .when().put("/catalogoDeArtistas/" + id)
@@ -71,6 +74,7 @@ public class CatalogoDeArtistasResourceTeste {
     @Test
     void testApagar() {
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().delete("/catalogoDeArtistas/" + id)
                 .then()
                 .statusCode(204);

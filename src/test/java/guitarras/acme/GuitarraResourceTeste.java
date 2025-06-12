@@ -21,12 +21,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @QuarkusTest
-public class GuitarraResourceTeste {
+public class GuitarraResourceTeste extends BaseTest{
 
     @Inject
     GuitarraService guitarraService;
-
-    private String adminAuthToken;
 
     private static final String GUITARRAS_PATH = "/guitarras";
     private static final String GUITARRAS_ELETRICA_PATH = GUITARRAS_PATH + "/eletrica";
@@ -35,33 +33,11 @@ public class GuitarraResourceTeste {
     private static final String GUITARRAS_SEARCH_PATH = GUITARRAS_PATH + "/search/{nome}";
 
 
-    @BeforeEach
-    public void setUp() {
-        // Obtém o token antes de cada teste
-        adminAuthToken = getAdminAuthToken();
-    }
-
-    private String getAdminAuthToken() {
-        AuthDTO authDTO = new AuthDTO("gerente", "123456"); // Use suas credenciais de teste "Adm"
-        String token = given()
-                .contentType(ContentType.JSON)
-                .body(authDTO)
-                .when().post("/auth") // Certifique-se que este é o path correto para o login
-                .then()
-                .statusCode(Response.Status.OK.getStatusCode())
-                .extract().header("Authorization");
-
-        if (token == null || token.isEmpty()) {
-            throw new RuntimeException("Não foi possível obter o token de autenticação para os testes. Verifique o AuthResource e as credenciais.");
-        }
-        return token;
-    }
-
     @Test
     public void testBuscarTodasGuitarras() {
 
         given()
-                .header("Authorization", "Bearer " + adminAuthToken) // Adiciona o token
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when()
                 .get(GUITARRAS_PATH)
                 .then()

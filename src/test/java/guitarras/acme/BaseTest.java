@@ -9,20 +9,19 @@ import static io.restassured.RestAssured.given;
 
 public class BaseTest {
 
-    private String adminAuthToken;
+    protected String adminAuthToken;
 
     @BeforeEach
     public void setUp() {
-        // Obtém o token antes de cada teste
         adminAuthToken = getAdminAuthToken();
     }
 
     private String getAdminAuthToken() {
-        AuthDTO authDTO = new AuthDTO("gerente", "123456"); // Use suas credenciais de teste "Adm"
+        AuthDTO authDTO = new AuthDTO("gerente", "123456");
         String token = given()
                 .contentType(ContentType.JSON)
                 .body(authDTO)
-                .when().post("/auth") // Certifique-se que este é o path correto para o login
+                .when().post("/auth")
                 .then()
                 .statusCode(Response.Status.OK.getStatusCode())
                 .extract().header("Authorization");

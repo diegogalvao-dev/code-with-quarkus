@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-public class ConfiguracaoAudioResourceTeste {
+public class ConfiguracaoAudioResourceTeste extends BaseTest{
 
     @Inject
     ConfiguracaoAudioService CService;
@@ -23,6 +23,7 @@ public class ConfiguracaoAudioResourceTeste {
     @Test
     void testeBuscarTodos() {
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().get("/configuracaoaudio")
                 .then()
                 .statusCode(200);
@@ -34,6 +35,7 @@ public class ConfiguracaoAudioResourceTeste {
         ConfiguracaoAudioDTO configDto = new ConfiguracaoAudioDTO("Marshall", "Rock", true);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(configDto)
                 .when().post("/configuracaoaudio")
@@ -54,6 +56,7 @@ public class ConfiguracaoAudioResourceTeste {
         ConfiguracaoAudioDTO estadoAlterado = new ConfiguracaoAudioDTO("ght", "rr", false);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estadoAlterado)
                 .when().put("/configuracaoaudio/" + id)
@@ -69,6 +72,7 @@ public class ConfiguracaoAudioResourceTeste {
     @Test
     void testConfiguracaoApagar() {
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().delete("/configuracaoaudio/" + id)
                 .then()
                 .statusCode(204);

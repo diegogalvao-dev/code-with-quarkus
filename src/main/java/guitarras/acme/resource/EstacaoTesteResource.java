@@ -33,7 +33,7 @@ public class EstacaoTesteResource {
     }
 
     @GET
-    @RolesAllowed({"User"})
+    @RolesAllowed({"User", "Adm"})
     @Path("/naoOcupada")
     public Response buscarNaoOcupada(){
         return Response.ok().entity(service.findByNaoOcupada()).build();

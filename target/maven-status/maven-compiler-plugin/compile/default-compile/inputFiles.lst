@@ -5,6 +5,8 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\ConfiguracaoAudioResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\CordaDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\CordaResponseDTO.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EnderecoDTO.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EnderecoResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EstacaoTesteDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EstacaoTesteResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\EstojoDTO.java
@@ -26,6 +28,7 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\converterjpa\PerfilConverter.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Corda.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\DefaultEntity.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Endereco.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\EstacaoTeste.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\EstiloCase.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\EstiloMusical.java
@@ -43,6 +46,7 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\CatalogoDeArtistasRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\ConfiguracaoAudioRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\CordaRepository.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\EnderecoRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\EstacaoTesteRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\EstojoRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\GuitarraRepository.java
@@ -53,6 +57,7 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\CatalogoDeArtistasResource.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\ConfiguracaoAudioResource.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\CordaResource.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\EnderecoResource.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\EstacaoTesteResource.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\EstojoResource.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\resource\GuitarraResource.java
@@ -65,6 +70,8 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\ConfiguracaoAudioServiceImpl.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\CordaService.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\CordaServiceImpl.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\EnderecoService.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\EnderecoServiceImpl.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\EstacaoTesteService.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\EstacaoTesteServiceImpl.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\service\EstojoService.java

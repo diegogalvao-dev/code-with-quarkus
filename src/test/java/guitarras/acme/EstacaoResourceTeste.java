@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-public class EstacaoResourceTeste {
+public class EstacaoResourceTeste extends BaseTest{
 
     @Inject
     EstacaoTesteService estacaoService;
@@ -29,12 +29,12 @@ public class EstacaoResourceTeste {
     private static final String ESTACAO_BY_NAME_PATH = ESTACAO_PATH + "/{name}";
     private static final String ESTACAO_BY_ID_PATH = ESTACAO_PATH + "/{id}";
 
-
     @Test
     @TestTransaction
     void testBuscarTodos() {
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().get("/estacaoteste")
                 .then()
                 .statusCode(200);
@@ -47,6 +47,7 @@ public class EstacaoResourceTeste {
 
         ConfiguracaoAudioDTO configDto = new ConfiguracaoAudioDTO("ToDeleteAmp", "Blues", false);
         Long idConfig = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(configDto)
                 .when().post(CONFIGURACAO_PATH)
@@ -58,6 +59,7 @@ public class EstacaoResourceTeste {
         EstacaoTesteDTO estacaoParaApagarDto = new EstacaoTesteDTO("ladoc", false, "local_apagar", idConfig);
 
         Long idEstacaoParaApagar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estacaoParaApagarDto)
                 .when().post(ESTACAO_PATH)
@@ -67,6 +69,7 @@ public class EstacaoResourceTeste {
         assertThat("EstacaoTeste ID for delete test not created", idEstacaoParaApagar, notNullValue());
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("name", "ladoc")
                 .when()
                 .delete(ESTACAO_BY_NAME_PATH)
@@ -81,6 +84,7 @@ public class EstacaoResourceTeste {
 
         ConfiguracaoAudioDTO configDto = new ConfiguracaoAudioDTO("Marshall", "Rock", true);
         Long idConfiguracaoCriada = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(configDto)
                 .when().post(CONFIGURACAO_PATH)
@@ -95,6 +99,7 @@ public class EstacaoResourceTeste {
 
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estacaoteste)
                 .when().post(ESTACAO_PATH)
@@ -117,6 +122,7 @@ public class EstacaoResourceTeste {
 
         ConfiguracaoAudioDTO configDto = new ConfiguracaoAudioDTO("Amp", "Jazz", false);
         Long idConfig = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON).body(configDto)
                 .when().post(CONFIGURACAO_PATH)
                 .then().statusCode(201)
@@ -125,6 +131,7 @@ public class EstacaoResourceTeste {
 
         EstacaoTesteDTO estacaoNaoOcupadaDto = new EstacaoTesteDTO("ladoa", false, "local_NAO_ocupado", idConfig);
         Long idNaoOcupada = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estacaoNaoOcupadaDto)
                 .when().post(ESTACAO_PATH)
@@ -133,6 +140,7 @@ public class EstacaoResourceTeste {
         assertThat("ID da Estacao NÃO Ocupada não foi criado", idNaoOcupada, notNullValue());
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().get(ESTACAO_PATH + "/naoOcupada")
                 .then()
                 .log().all()
@@ -150,6 +158,7 @@ public class EstacaoResourceTeste {
 
         ConfiguracaoAudioDTO configDto = new ConfiguracaoAudioDTO("Amp", "Jazz", false);
         Long idConfig = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON).body(configDto)
                 .when().post(CONFIGURACAO_PATH)
                 .then().statusCode(201)
@@ -158,6 +167,7 @@ public class EstacaoResourceTeste {
 
         EstacaoTesteDTO estacaoteste = new EstacaoTesteDTO("ladoh", false, "sala Acessorios", idConfig);
         Long idEstacao = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estacaoteste)
                 .when().post(ESTACAO_PATH)
@@ -168,6 +178,7 @@ public class EstacaoResourceTeste {
 
         EstacaoTesteDTO estacaotestealterado = new EstacaoTesteDTO("ladog", false, "otherside", idConfig);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(estacaotestealterado)
                 .pathParam("id", idEstacao)

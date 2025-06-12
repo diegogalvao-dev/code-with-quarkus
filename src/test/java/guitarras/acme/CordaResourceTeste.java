@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-public class CordaResourceTeste {
+public class CordaResourceTeste extends BaseTest{
 
     @Inject
     CordaService cordaService;
@@ -31,6 +31,7 @@ public class CordaResourceTeste {
     @Test
     void testBuscarTodos() {
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .when().get("/cordas")
                 .then()
                 .statusCode(200);
@@ -41,6 +42,7 @@ public class CordaResourceTeste {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when()
@@ -51,6 +53,7 @@ public class CordaResourceTeste {
 
         CordaDTO corda = new CordaDTO("gg", idParaAlterar);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(corda)
                 .when().post("/cordas")
@@ -68,6 +71,7 @@ public class CordaResourceTeste {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when()
@@ -78,6 +82,7 @@ public class CordaResourceTeste {
 
         CordaDTO corda = new CordaDTO("gg", idParaAlterar);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(corda)
                 .when().post("/cordas")
@@ -89,6 +94,7 @@ public class CordaResourceTeste {
 
         CordaDTO cordaAlterado = new CordaDTO("jj", idParaAlterar);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(cordaAlterado)
                 .pathParam("id", id)
@@ -108,6 +114,7 @@ public class CordaResourceTeste {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idGuitarraCriada = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when().post(GUITARRAS_ELETRICA_PATH)
@@ -117,6 +124,7 @@ public class CordaResourceTeste {
 
         CordaDTO corda = new CordaDTO("gg", idGuitarraCriada);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(corda)
                 .when().post(CORDA_PATH)
@@ -125,6 +133,7 @@ public class CordaResourceTeste {
 
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("idGuitarra", idGuitarraCriada)
                 .when().delete(CORDA_PATH + "/guitarra/{idGuitarra}")
                 .then()
@@ -140,6 +149,7 @@ public class CordaResourceTeste {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when()
@@ -150,6 +160,7 @@ public class CordaResourceTeste {
 
         CordaDTO corda = new CordaDTO("gg", idParaAlterar);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(corda)
                 .when().post("/cordas")
@@ -158,6 +169,7 @@ public class CordaResourceTeste {
                 .body("id", notNullValue(), "calibre", is("gg"), "guitarra.id", equalTo(idParaAlterar.intValue()));
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("id", idParaAlterar.intValue())
                 .when().get("/cordas" + "/{id}")
                 .then()
@@ -173,6 +185,7 @@ public class CordaResourceTeste {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when()
@@ -183,6 +196,7 @@ public class CordaResourceTeste {
 
         CordaDTO corda = new CordaDTO("gg", idParaAlterar);
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(corda)
                 .when().post("/cordas")
@@ -193,6 +207,7 @@ public class CordaResourceTeste {
         idd =  cordaService.create(corda).id();
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("id", idd)
                 .when().get("/cordas" + "/{id}")
                 .then()

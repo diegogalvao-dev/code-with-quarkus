@@ -29,14 +29,14 @@ public class EstojoResource {
     }
 
     @GET
-    @RolesAllowed({"User"})
+    @RolesAllowed({"User", "Adm"})
     @Path("/material")
     public Response buscarPorMaterial(@QueryParam("material") String material) {
         return Response.ok().entity(service.findByMaterial(material)).build();
     }
 
     @GET
-    @RolesAllowed({"User"})
+    @RolesAllowed({"User", "Adm"})
     @Path("/estiloCase/{nomeEstiloCase}")
     public Response buscarporCase(@PathParam("nomeEstiloCase") String nomeEstiloCase) {
         EstiloCase estilocase = EstiloCase.valueOf(nomeEstiloCase.toUpperCase());

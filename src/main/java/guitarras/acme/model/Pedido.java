@@ -20,6 +20,10 @@ public class Pedido extends DefaultEntity{
 
     private Double totalPedido;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
+    private Endereco endereco;
+
     public LocalDateTime getDataHora() {
         return dataHora;
     }
