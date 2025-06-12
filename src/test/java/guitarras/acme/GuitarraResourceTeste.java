@@ -1,9 +1,6 @@
 package guitarras.acme;
 
-import guitarras.acme.dto.GuitarraAcusticaDTO;
-import guitarras.acme.dto.GuitarraEletricaDTO;
-import guitarras.acme.dto.GuitarrasDTO;
-import guitarras.acme.dto.GuitarrasResponseDTO;
+import guitarras.acme.dto.*;
 import guitarras.acme.service.GuitarraService;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
@@ -17,6 +14,7 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import jakarta.ws.rs.core.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -28,20 +26,47 @@ public class GuitarraResourceTeste {
     @Inject
     GuitarraService guitarraService;
 
+    private String adminAuthToken;
+
     private static final String GUITARRAS_PATH = "/guitarras";
     private static final String GUITARRAS_ELETRICA_PATH = GUITARRAS_PATH + "/eletrica";
     private static final String GUITARRAS_ACUSTICA_PATH = GUITARRAS_PATH + "/acustica";
     private static final String GUITARRAS_ID_PATH = GUITARRAS_PATH + "/{id}";
     private static final String GUITARRAS_SEARCH_PATH = GUITARRAS_PATH + "/search/{nome}";
 
+
+    @BeforeEach
+    public void setUp() {
+        // Obtém o token antes de cada teste
+        adminAuthToken = getAdminAuthToken();
+    }
+
+    private String getAdminAuthToken() {
+        AuthDTO authDTO = new AuthDTO("gerente", "123456"); // Use suas credenciais de teste "Adm"
+        String token = given()
+                .contentType(ContentType.JSON)
+                .body(authDTO)
+                .when().post("/auth") // Certifique-se que este é o path correto para o login
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode())
+                .extract().header("Authorization");
+
+        if (token == null || token.isEmpty()) {
+            throw new RuntimeException("Não foi possível obter o token de autenticação para os testes. Verifique o AuthResource e as credenciais.");
+        }
+        return token;
+    }
+
     @Test
     public void testBuscarTodasGuitarras() {
 
         given()
-                .when().get(GUITARRAS_PATH)
+                .header("Authorization", "Bearer " + adminAuthToken) // Adiciona o token
+                .when()
+                .get(GUITARRAS_PATH)
                 .then()
-                    .statusCode(Response.Status.OK.getStatusCode())
-                    .body("size()", greaterThanOrEqualTo(0));
+                .statusCode(Response.Status.OK.getStatusCode())
+                .body("size()", greaterThanOrEqualTo(0));
 
     }
 
@@ -49,6 +74,7 @@ public class GuitarraResourceTeste {
     public void testeBuscarPorNome() {
 
         given()
+            .header("Authorization", "Bearer " + adminAuthToken)
             .when().get(GUITARRAS_SEARCH_PATH, "Guitarra")
             .then()
                 .statusCode(Response.Status.OK.getStatusCode())
@@ -63,6 +89,7 @@ public class GuitarraResourceTeste {
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when().post(GUITARRAS_ELETRICA_PATH)
@@ -80,6 +107,7 @@ public class GuitarraResourceTeste {
         GuitarraAcusticaDTO guitarraAcustica = new GuitarraAcusticaDTO("CG", 1, 401.00, "teca", true, true, 9200);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraAcustica)
                 .when().post(GUITARRAS_ACUSTICA_PATH)
@@ -95,6 +123,7 @@ public class GuitarraResourceTeste {
 
         GuitarraEletricaDTO guitarraEletrica = new GuitarraEletricaDTO("fender", 1, 500.00, 10023, 3, "Hardtail");
         Long idParaAlterar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraEletrica)
                 .when()
@@ -106,6 +135,7 @@ public class GuitarraResourceTeste {
         GuitarrasDTO guitarraAlteradaDTO = new GuitarrasDTO("fender_ALTERADO", 204.00, 10023, "ELETRICA", 2);
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraAlteradaDTO)
                 .pathParam("id", idParaAlterar)
@@ -128,6 +158,7 @@ public class GuitarraResourceTeste {
 
         GuitarraAcusticaDTO guitarraParaApagar = new GuitarraAcusticaDTO("CG", 1, 401.00, "teca", true, true, 9200);
         Long idParaApagar = given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .contentType(ContentType.JSON)
                 .body(guitarraParaApagar)
                 .when()
@@ -139,6 +170,7 @@ public class GuitarraResourceTeste {
         assertThat("ID para apagar não deveria ser nulo", idParaApagar, notNullValue());
 
         given()
+                .header("Authorization", "Bearer " + adminAuthToken)
                 .pathParam("id", idParaApagar)
                 .when()
                 .then()

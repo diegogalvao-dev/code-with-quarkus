@@ -2,6 +2,7 @@ package guitarras.acme.resource;
 
 import guitarras.acme.dto.*; // Importe os novos DTOs
 import guitarras.acme.service.GuitarraServiceImpl; // Use a implementação
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -21,11 +22,13 @@ public class GuitarraResource {
     GuitarraServiceImpl service;
 
     @GET
+    @RolesAllowed({"User", "Adm"})
     public Response buscarTodas() {
         return Response.ok(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed({"User", "Adm"})
     @Path("/search/{nome}")
     public Response buscarPorNome(@PathParam("nome") String nome) {
         return Response.ok(service.findByNome(nome)).build();
@@ -33,6 +36,7 @@ public class GuitarraResource {
 
 
     @POST
+    @RolesAllowed({"Adm"})
     @Path("/eletrica")
     @Transactional
     public Response incluirEletrica(@Valid GuitarraEletricaDTO dto) {
@@ -47,6 +51,7 @@ public class GuitarraResource {
 
 
     @POST
+    @RolesAllowed({"Adm"})
     @Path("/acustica")
     @Transactional
     public Response incluirAcustica(@Valid GuitarraAcusticaDTO dto) {
@@ -60,6 +65,7 @@ public class GuitarraResource {
     }
 
     @PUT
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     @Transactional
     public Response alterar(@PathParam("id") Long id, @Valid GuitarrasDTO dto) {
@@ -74,6 +80,7 @@ public class GuitarraResource {
     }
 
     @DELETE
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     @Transactional
     public Response apagar(@PathParam("id") Long id) {

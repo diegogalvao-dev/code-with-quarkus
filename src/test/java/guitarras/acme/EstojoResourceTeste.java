@@ -1,6 +1,7 @@
 package guitarras.acme;
 
 
+import guitarras.acme.dto.AuthDTO;
 import guitarras.acme.dto.EstojoDTO;
 import guitarras.acme.dto.EstojoResponseDTO;
 import guitarras.acme.model.EstiloCase;
@@ -13,10 +14,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import static guitarras.acme.model.EstiloCase.HARDCASE;
 import static org.hamcrest.CoreMatchers.is;
@@ -31,10 +29,34 @@ public class EstojoResourceTeste {
     @Inject
     EstojoService estojoService;
 
+    private String adminAuthToken;
+
     private static final String ESTOJO_PATH = "/estojo";
     private static final String ESTOJO_ID_PATH = ESTOJO_PATH + "/{id}";
     private static final String ESTOJO_MATERIAL_PATH = ESTOJO_PATH + "/material";
     private static final String ESTOJO_ESTILO_PATH = ESTOJO_PATH + "/estiloCase/{nomeEstiloCase}";
+
+    @BeforeEach
+    public void setUp() {
+        // Obtém o token antes de cada teste
+        adminAuthToken = getAdminAuthToken();
+    }
+
+    private String getAdminAuthToken() {
+        AuthDTO authDTO = new AuthDTO("gerente", "123456"); // Use suas credenciais de teste "Adm"
+        String token = given()
+                .contentType(ContentType.JSON)
+                .body(authDTO)
+                .when().post("/auth") // Certifique-se que este é o path correto para o login
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode())
+                .extract().header("Authorization");
+
+        if (token == null || token.isEmpty()) {
+            throw new RuntimeException("Não foi possível obter o token de autenticação para os testes. Verifique o AuthResource e as credenciais.");
+        }
+        return token;
+    }
 
     @Test
     @TestTransaction

@@ -5,6 +5,7 @@ import guitarras.acme.dto.EstacaoTesteDTO;
 import guitarras.acme.dto.EstacaoTesteResponseDTO;
 import guitarras.acme.model.EstacaoTeste;
 import guitarras.acme.service.EstacaoTesteService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -26,22 +27,26 @@ public class EstacaoTesteResource {
     EstacaoTesteService service;
 
     @GET
+    @RolesAllowed({"User", "Adm"})
     public Response buscarTodos() {
         return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed({"User"})
     @Path("/naoOcupada")
     public Response buscarNaoOcupada(){
         return Response.ok().entity(service.findByNaoOcupada()).build();
     }
 
     @POST
+    @RolesAllowed({"Adm"})
     public Response incluir(@Valid EstacaoTesteDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
+    @RolesAllowed({"Adm"})
     @Path("{id}")
     public Response alterar(@PathParam("id") Long id, @Valid EstacaoTesteDTO dto) {
         service.update(id, dto);
@@ -49,6 +54,7 @@ public class EstacaoTesteResource {
     }
 
     @DELETE
+    @RolesAllowed({"Adm"})
     @Path("{name}")
     public Response apagar(@PathParam("name") String name) {
         service.deleteByName(name);

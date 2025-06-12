@@ -4,6 +4,7 @@ package guitarras.acme.resource;
 import guitarras.acme.dto.CordaDTO;
 import guitarras.acme.dto.CordaResponseDTO;
 import guitarras.acme.service.CordaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -23,6 +24,7 @@ public class CordaResource {
     CordaService service;
 
     @GET
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     public Response buscarPorId(@PathParam("id") Long id) {
         try {
@@ -34,12 +36,14 @@ public class CordaResource {
     }
 
     @GET
+    @RolesAllowed({"User", "Adm"})
     public Response buscarTodos() {
         return Response.ok().entity(service.findAll()).build();
     }
 
 
     @GET
+    @RolesAllowed({"User"})
     @Path("/guitarra/{idGuitarra}")
     public Response buscarPorGuitarra(@PathParam("idGuitarra") Long idGuitarra){
         List<CordaResponseDTO> lista = service.findByPorGuitarra(idGuitarra);
@@ -47,11 +51,13 @@ public class CordaResource {
     }
 
     @POST
+    @RolesAllowed({"Adm"})
     public Response incluir(@Valid CordaDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, @Valid CordaDTO dto) {
         service.update(id, dto);
@@ -59,6 +65,7 @@ public class CordaResource {
     }
 
     @DELETE
+    @RolesAllowed({"Adm"})
     @Path("/guitarra/{idGuitarra}")
     @Transactional
     public Response apagarPorGuitarra(@PathParam("idGuitarra") Long idGuitarra) {

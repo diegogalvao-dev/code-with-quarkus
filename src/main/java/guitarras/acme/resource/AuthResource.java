@@ -41,13 +41,13 @@ public class AuthResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
 
-        UsuarioResponseDTO usuarioResponseDTO = usuarioService.findByUsernameAndSenha(dto.username(), hash);
+        UsuarioResponseDTO usuario = usuarioService.findByUsernameAndSenha(dto.username(), hash);
 
-        if(usuarioResponseDTO == null){
+        if(usuario == null){
             return Response.noContent().build();
         }
 
-        String token = jwtService.generateJwt(usuarioResponseDTO.username(), usuarioResponseDTO.perfil().getNAME());
+        String token = jwtService.generateJwt(usuario.username(), usuario.perfil().getNAME());
 
         return Response.ok().header("Authorization", token).build();
 

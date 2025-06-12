@@ -4,6 +4,7 @@ package guitarras.acme.resource;
 import guitarras.acme.dto.EstojoDTO;
 import guitarras.acme.model.EstiloCase;
 import guitarras.acme.service.EstojoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,17 +23,20 @@ public class EstojoResource {
     EstojoService service;
 
     @GET
+    @RolesAllowed({"User", "Adm"})
     public Response buscarTodos() {
         return Response.ok().entity(service.findAll()).build();
     }
 
     @GET
+    @RolesAllowed({"User"})
     @Path("/material")
     public Response buscarPorMaterial(@QueryParam("material") String material) {
         return Response.ok().entity(service.findByMaterial(material)).build();
     }
 
     @GET
+    @RolesAllowed({"User"})
     @Path("/estiloCase/{nomeEstiloCase}")
     public Response buscarporCase(@PathParam("nomeEstiloCase") String nomeEstiloCase) {
         EstiloCase estilocase = EstiloCase.valueOf(nomeEstiloCase.toUpperCase());
@@ -40,11 +44,13 @@ public class EstojoResource {
     }
 
     @POST
+    @RolesAllowed({"Adm"})
     public Response incluir(@Valid EstojoDTO dto) {
         return Response.status(Status.CREATED).entity(service.create(dto)).build();
     }
 
     @PUT
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     public Response alterar(Long id, @Valid EstojoDTO dto) {
         service.update(id, dto);
@@ -52,6 +58,7 @@ public class EstojoResource {
     }
 
     @DELETE
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     @Transactional
     public Response apagar(Long id) {

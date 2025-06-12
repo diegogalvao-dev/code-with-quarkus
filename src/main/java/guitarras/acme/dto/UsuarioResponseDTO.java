@@ -5,8 +5,8 @@ import guitarras.acme.model.Usuario;
 
 public record UsuarioResponseDTO(
     Long id,
+    String name,
     String username,
-    String senha,
     Perfil perfil) {
 
     public static UsuarioResponseDTO valueOf(Usuario usuario){
@@ -17,8 +17,8 @@ public record UsuarioResponseDTO(
 
         return new UsuarioResponseDTO(
                 usuario.getId(),
+                usuario.getPessoaFisica().getName(),
                 usuario.getUsername(),
-                usuario.getSenha(),
                 usuario.getPerfil());
 
     }

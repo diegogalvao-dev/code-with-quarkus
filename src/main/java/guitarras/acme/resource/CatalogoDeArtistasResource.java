@@ -8,6 +8,7 @@ import guitarras.acme.model.CatalogoDeArtistas;
 import guitarras.acme.model.Guitarra;
 import guitarras.acme.service.CatalogoDeArtistasService;
 import guitarras.acme.service.CordaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -29,11 +30,13 @@ public class CatalogoDeArtistasResource {
     CatalogoDeArtistasService service;
 
     @GET
+    @RolesAllowed({"User", "Adm"})
     public Response buscarTodos() {
         return Response.ok().entity(service.findAll()).build();
     }
 
     @POST
+    @RolesAllowed({"Adm"})
     public Response incluir(CatalogoDeArtistasDTO dto) {
 //        return Response.status(Status.CREATED).entity(service.create(dto)).build();
         CatalogoDeArtistas novoArtista = service.create(dto);
@@ -43,6 +46,7 @@ public class CatalogoDeArtistasResource {
     }
 
     @POST
+    @RolesAllowed({"Adm"})
     @Path("/{idArtista}/guitarras/{idGuitarra}")
     public Response adicionarGuitarra(@PathParam("idArtista") Long idArtista, @PathParam("idGuitarra") Long idGuitarra){
         CatalogoDeArtistas artistasGuitarras = service.addGuitarra(idArtista, idGuitarra);
@@ -57,6 +61,7 @@ public class CatalogoDeArtistasResource {
     }
 
     @PUT
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     public Response alterar(@PathParam("id") Long id, @Valid CatalogoDeArtistasDTO dto) {
 //        service.update(id, dto);
@@ -71,6 +76,7 @@ public class CatalogoDeArtistasResource {
     }
 
     @DELETE
+    @RolesAllowed({"Adm"})
     @Path("/{id}")
     public Response apagar(@PathParam("id") Long id) {
         service.delete(id);
