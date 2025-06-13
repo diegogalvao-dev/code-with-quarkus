@@ -11,7 +11,7 @@ public record PessoaFisicaDTO(
         String nome,
 
         @Size(max = 11, min = 11, message = "O cpf deve possuir 11 caracteres.")
-        @NotNull(message = "O cpf não pode ser nulo.")
+        @NotBlank(message = "O cpf não pode ser nulo.")
         String cpf) {
 
 }

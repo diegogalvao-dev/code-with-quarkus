@@ -24,8 +24,13 @@ VALUES ('Fender Stratocaster Sunburst', 'STRATOCASTER', 10, 1250.99, 'ELETRICA',
 INSERT INTO Guitarra (nome, modelos, estoque, price, TIPO_GUITARRA, numero_captadores, tipoPonte)
 VALUES ('Taylor GS Mini Mahogany', 'SG', 15, 699.00, 'ACUSTICA', NULL, NULL);
 
+INSERT INTO Endereco (id_usuario, quadra, lote) VALUES (1, '603note', '89');
+INSERT INTO Endereco (id_usuario, quadra, lote) VALUES (2, '403sul', '07');
+INSERT INTO Endereco (id_usuario, quadra, lote) VALUES (2, '830norte', '72');
+
 INSERT INTO Pedido (dataHora, id_usuario, totalPedido)
 VALUES ('2024-05-21 14:30:00', 2, 1600.98);
 
 INSERT INTO ItemPedido (id_pedido, id_guitarra, quantidade, preco)
 VALUES (1, 1, 1, 1250.99);
+

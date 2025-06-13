@@ -1,5 +1,6 @@
 package guitarras.acme.dto;
 
+import guitarras.acme.model.Endereco;
 import guitarras.acme.model.Pedido;
 
 import java.time.LocalDateTime;
@@ -9,8 +10,8 @@ public record PedidoResponseDTO(
         Long id,
         LocalDateTime date,
         Double totalPedido,
-        List<ItemPedidoResponseDTO> lista
-        // endereco
+        List<ItemPedidoResponseDTO> lista,
+        Endereco endereco
         // pagamento
         //status pedido
 ) {
@@ -20,7 +21,8 @@ public record PedidoResponseDTO(
                 pedido.getId(),
                 pedido.getDataHora(),
                 pedido.getTotalPedido(),
-                pedido.getItens().stream().map(i -> ItemPedidoResponseDTO.valueOf(i)).toList()
+                pedido.getItens().stream().map(i -> ItemPedidoResponseDTO.valueOf(i)).toList(),
+                pedido.getEndereco()
         );
     }
 

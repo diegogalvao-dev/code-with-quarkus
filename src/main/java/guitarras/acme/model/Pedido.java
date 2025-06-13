@@ -24,6 +24,14 @@ public class Pedido extends DefaultEntity{
     @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     private Endereco endereco;
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
     public LocalDateTime getDataHora() {
         return dataHora;
     }
