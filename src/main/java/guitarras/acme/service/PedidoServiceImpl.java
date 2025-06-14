@@ -12,7 +12,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.Path;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -114,6 +114,7 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
+    @Transactional
     public PedidoResponseDTO ProcessamentoPagamento(Long idpedido, boolean aprovado) {
         Pedido pedido = pedidoRepository.findByIdOptional(idpedido)
                 .orElseThrow(() -> new NotFoundException("Pedido com ID " + idpedido + " não encontrado."));
@@ -125,22 +126,16 @@ public class PedidoServiceImpl implements PedidoService{
 
         if (aprovado) {
             pedido.setStatus(StatusPedido.PAGAMENTO_APROVADO);
-            // Aqui você poderia, por exemplo, mudar para EM_PROCESSAMENTO se quisesse
-            // pedido.setStatus(StatusPedido.EM_PROCESSAMENTO);
             System.out.println("LOG: Pagamento APROVADO para o pedido ID: " + idpedido);
         } else {
             pedido.setStatus(StatusPedido.PAGAMENTO_RECUSADO);
             System.out.println("LOG: Pagamento RECUSADO para o pedido ID: " + idpedido);
-            // Consideração para um sistema real:
-            // Se o pagamento for recusado, você pode precisar reverter a baixa de estoque.
             for(ItemPedido item : pedido.getItens()) {
                 Guitarra guitarra = item.getGuitarra();
                 guitarra.setEstoque(guitarra.getEstoque() + item.getQuantidade());
-                guitarraRepository.persist(guitarra); // Panache gerencia
             }
             // Para o trabalho, apenas mudar o status pode ser suficiente, mas mencione essa lógica.
         }
-        pedidoRepository.persist(pedido); // Não é necessário chamar persist explicitamente se a entidade for gerenciada e modificada dentro de uma transação.
         return PedidoResponseDTO.valueOf(pedido);
     }
 

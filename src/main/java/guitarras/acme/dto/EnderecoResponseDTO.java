@@ -1,6 +1,6 @@
 package guitarras.acme.dto;
 
-import guitarras.acme.model.Corda;
+
 import guitarras.acme.model.Endereco;
 import guitarras.acme.model.Usuario;
 
@@ -12,7 +12,11 @@ public record EnderecoResponseDTO(Long id, String quadra, Integer lote, Usuario 
             return null;
         }
 
-        return new EnderecoResponseDTO(endereco.getId(), endereco.getQuadra(), endereco.getLote(), endereco.getUsuario());
+        return new EnderecoResponseDTO(
+                endereco.getId(),
+                endereco.getQuadra(),
+                endereco.getLote(),
+                endereco.getUsuario());
 
     }
 

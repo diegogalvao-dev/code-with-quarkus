@@ -57,26 +57,21 @@ public class PedidoResource {
     @POST
     @Path("/{id}/simular-pagamento")
     @RolesAllowed({"User"})
-    public Response simularPagamento(@PathParam("id") Long pedidoId, @QueryParam("aprovado") boolean aprovado) {
+    public Response simularPagamento(@PathParam("id") Long idpedido, @QueryParam("aprovado") boolean aprovado) {
 
         String usernameLogado = jwt.getSubject();
-        PedidoResponseDTO pedidoAntes = pedidoService.findById(pedidoId);
+        PedidoResponseDTO pedidoAntes = pedidoService.findById(idpedido);
 
         if (pedidoAntes == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Pedido não encontrado.").build();
         }
-//        // Verifica se o usuário logado é o dono do pedido
-//        if (pedidoAntes.nomeUsuario() == null || !pedidoAntes.nomeUsuario().equals(usernameLogado)) {
-//            return Response.status(Response.Status.FORBIDDEN).entity("Você não tem permissão para processar o pagamento deste pedido.").build();
-//        }
 
         try {
-            PedidoResponseDTO pedidoAtualizado = pedidoService.ProcessamentoPagamento(pedidoId, aprovado);
+            PedidoResponseDTO pedidoAtualizado = pedidoService.ProcessamentoPagamento(idpedido, aprovado);
             return Response.ok(pedidoAtualizado).build();
         } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         } catch (IllegalStateException e) {
-            // IllegalStateException pode ser por status inválido do pedido
             return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
         }
     }
