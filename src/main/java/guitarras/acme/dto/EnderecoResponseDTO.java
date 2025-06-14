@@ -4,7 +4,11 @@ package guitarras.acme.dto;
 import guitarras.acme.model.Endereco;
 import guitarras.acme.model.Usuario;
 
-public record EnderecoResponseDTO(Long id, String quadra, Integer lote, Usuario User) {
+public record EnderecoResponseDTO(
+        Long id,
+        String quadra,
+        Integer lote,
+        UsuarioResponseDTO User) {
 
     public static EnderecoResponseDTO valueOf(Endereco endereco){
 
@@ -16,7 +20,9 @@ public record EnderecoResponseDTO(Long id, String quadra, Integer lote, Usuario 
                 endereco.getId(),
                 endereco.getQuadra(),
                 endereco.getLote(),
-                endereco.getUsuario());
+                UsuarioResponseDTO.valueOf(endereco.getUsuario())
+
+        );
 
     }
 
