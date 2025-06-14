@@ -21,6 +21,7 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\PedidoResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\PessoaFisicaDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\PessoaFisicaResponseDTO.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\UsuarioDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\dto\UsuarioResponseDTO.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\CatalogoDeArtistas.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\ConfiguracaoAudio.java
@@ -42,6 +43,7 @@ C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guita
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Perfil.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Pessoa.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\PessoaFisica.java
+C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\StatusPedido.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\model\Usuario.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\CatalogoDeArtistasRepository.java
 C:\Users\block\Documents\Estudos\Facul\TP1\code-with-quarkus\src\main\java\guitarras\acme\repository\ConfiguracaoAudioRepository.java

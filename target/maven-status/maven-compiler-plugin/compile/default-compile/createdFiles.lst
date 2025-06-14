@@ -8,6 +8,7 @@ guitarras\acme\repository\EnderecoRepository.class
 guitarras\acme\model\EstiloCase.class
 guitarras\acme\resource\EnderecoResource.class
 guitarras\acme\service\HashService.class
+guitarras\acme\dto\UsuarioDTO.class
 guitarras\acme\resource\CordaResource.class
 guitarras\acme\dto\PessoaFisicaDTO.class
 guitarras\acme\model\Perfil.class

@@ -8,7 +8,10 @@ import java.util.List;
 public interface PedidoService {
 
     List<PedidoResponseDTO> findByUsername(String username);
-    PedidoResponseDTO findById(long idPedido, String username);
+    PedidoResponseDTO findById(long idPedido);
+
     PedidoResponseDTO create(PedidoDTO pedido, String username);
+    void delete(long id);
+    PedidoResponseDTO ProcessamentoPagamento(Long idpedido, boolean aprovado);
 
 }

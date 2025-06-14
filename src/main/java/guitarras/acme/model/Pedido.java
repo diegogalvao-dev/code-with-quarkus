@@ -15,7 +15,7 @@ public class Pedido extends DefaultEntity{
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "pedido")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", orphanRemoval = true)
     private List<ItemPedido> itens;
 
     private Double totalPedido;
@@ -23,6 +23,17 @@ public class Pedido extends DefaultEntity{
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     private Endereco endereco;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
+
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
+    }
 
     public Endereco getEndereco() {
         return endereco;
