@@ -46,6 +46,11 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
+    public List<PedidoResponseDTO> historicoDeCompras() {
+        return pedidoRepository.historicoDeCompra().stream().map(PedidoResponseDTO::valueOf).collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public PedidoResponseDTO create(PedidoDTO pedidoDTO, String username) {
 

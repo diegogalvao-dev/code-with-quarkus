@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.hibernate.engine.spi.Status;
 
-@Path("pedido")
+@Path("/pedido")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PedidoResource {
@@ -38,6 +38,13 @@ public class PedidoResource {
     @Path("/{id}")
     public Response BuscarPorId(@PathParam("id") Long id){
         return Response.ok().entity(pedidoService.findById(id)).build();
+    }
+
+    @GET
+    @Path("/pedido/hitorico")
+    @RolesAllowed({"User"})
+    public Response historicoDeCompras(){
+        return Response.ok().entity(pedidoService.historicoDeCompras()).build();
     }
 
 
